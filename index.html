@@ -1005,15 +1005,15 @@ var dontsList=['Asking about salary or holidays in round 1','Crossing arms or le
 var etiqHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start"><div><h3 style="font-family:\'Playfair Display\',serif;font-size:18px;font-weight:700;color:var(--wh);margin-bottom:20px;">Interview Day Timeline</h3><div class="tl">'+tlData.map(function(s){return '<div class="tl-item"><div class="tl-dot">'+s.e+'</div><div class="tl-time">'+s.t+'</div><div class="tl-text">'+s.tx+'</div><div class="tl-jp">'+s.jp+'</div></div>';}).join('')+'</div></div><div><h3 style="font-family:\'Playfair Display\',serif;font-size:18px;font-weight:700;color:var(--wh);margin-bottom:20px;">Do\'s &amp; Don\'ts</h3><div style="display:flex;flex-direction:column;gap:12px"><div class="dd-box dos-box"><div class="dd-title dos-t">✅ Do These</div>'+dosList.map(function(d){return '<div class="dd-row"><div class="dd-ico">✓</div>'+d+'</div>';}).join('')+'</div><div class="dd-box dont-box"><div class="dd-title dont-t">❌ Avoid These</div>'+dontsList.map(function(d){return '<div class="dd-row"><div class="dd-ico">✗</div>'+d+'</div>';}).join('')+'</div></div></div></div>';
 
 var vidData=[
-  {id:'M96B-IA0OZQ',tag:'Interview Tips',t:'How to Ace a Japanese Job Interview',d:'Comprehensive guide to Japanese interview culture, keigo usage, and what interviewers really look for.'},
-  {id:'WcqBDMjE7Cs',tag:'Self Introduction',t:'Japanese Self-Introduction for Interviews',d:'Step-by-step guide to crafting the perfect 自己紹介 with real examples for Japanese companies.'},
-  {id:'hMXnEnTCHmI',tag:'Etiquette',t:'Japanese Business Etiquette Explained',d:'Business card exchange, bowing, meeting behavior, and essential professional etiquette.'},
-  {id:'Ks4TxCqsqYc',tag:'Resume Guide',t:'履歴書 Writing Guide for Foreign Applicants',d:'How to correctly complete every section of a 履歴書 with tips for international candidates.'},
-  {id:'AkKqeYB0KVQ',tag:'Work Culture',t:'Working in Japan — What to Expect',d:'Real insights on Japanese company culture, teamwork expectations, and how to adapt.'},
-  {id:'zSpi3vNLmSE',tag:'Business Japanese',t:'Business Japanese Phrases for Work',d:'Essential phrases for meetings, emails, and daily office communication in Japan\'s tech industry.'},
+  {id:'1gVj5a-b12Y',tag:'Interview Tips',t:'How to Ace a Japanese Job Interview',d:'Comprehensive guide to Japanese interview culture, keigo usage, and what interviewers really look for.'},
+  {id:'qAxpv3cCHO8',tag:'Self Introduction',t:'Japanese Self-Introduction for Interviews',d:'Step-by-step guide to crafting the perfect 自己紹介 with real examples for Japanese companies.'},
+  {id:'G22C97XDZAA',tag:'Etiquette',t:'Japanese Business Etiquette Explained',d:'Business card exchange, bowing, meeting behavior, and essential professional etiquette.'},
+  {id:'G1vrqRVSHNM',tag:'Resume Guide',t:'履歴書 Writing Guide for Foreign Applicants',d:'How to correctly complete every section of a 履歴書 with tips for international candidates.'},
+  {id:'4fTrOmDrDgU',tag:'Work Culture',t:'Working in Japan — What to Expect',d:'Real insights on Japanese company culture, teamwork expectations, and how to adapt.'},
+  {id:'RE7e6fmNsgM',tag:'Business Japanese',t:'Business Japanese Phrases for Work',d:'Essential phrases for meetings, emails, and daily office communication in Japan\'s tech industry.'},
 ];
 var vidHTML='<div class="vid-grid">'+vidData.map(function(v){
-  return '<div class="vid-card"><div class="vid-embed"><iframe src='https://youtu.be/1gVj5a-b12Y?si=_G4NgXIj0E_d980Q'+v.id+'?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe></div><div class="vid-meta"><div class="vid-pill">'+v.tag+'</div><div class="vid-title">'+v.t+'</div><div class="vid-desc">'+v.d+'</div></div></div>';
+  return '<div class="vid-card"><div class="vid-embed"><iframe src="https://www.youtube.com/embed/'+v.id+'?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe></div><div class="vid-meta"><div class="vid-pill">'+v.tag+'</div><div class="vid-title">'+v.t+'</div><div class="vid-desc">'+v.d+'</div></div></div>';
 }).join('')+'</div>';
 
 buildTabGroup('intTabs','intPanels',[
