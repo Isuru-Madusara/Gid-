@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>技道 Gidō — Japan ICT Career Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root{
+  --bg:       #0A0A0A;
+  --bg2:      #111111;
+  --bg3:      #161616;
+  --bg4:      #1C1C1C;
+  --red:      #C8102E;
+  --red-h:    #A50E26;
+  --red-dim:  rgba(200,16,46,.12);
+  --red-bdr:  rgba(200,16,46,.3);
+  --wh:       #F0EDE8;
+  --wh6:      rgba(240,237,232,.6);
+  --wh4:      rgba(240,237,232,.4);
+  --wh2:      rgba(240,237,232,.2);
+  --wh08:     rgba(240,237,232,.08);
+  --wh04:     rgba(240,237,232,.04);
+  --bdr:      rgba(240,237,232,.08);
+  --bdr2:     rgba(240,237,232,.13);
+  --green:    #10B981;
+  --r:12px; --rl:16px; --rxl:20px;
+}
+/* ═══════════════════════════════════════
+   RESET
+═══════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--wh);font-family:'Inter','Noto Sans JP',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:#111;}
+::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:3px;}
+
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  height:62px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;
+  background:rgba(10,10,10,.95);
+  border-bottom:1px solid var(--bdr);
+  backdrop-filter:blur(18px);
+}
+.nav-logo{display:flex;align-items:center;gap:11px;}
+.nav-logo-box{
+  width:34px;height:34px;border-radius:8px;
+  background:var(--red);display:flex;align-items:center;justify-content:center;
+  font-family:'Noto Sans JP',sans-serif;font-size:15px;font-weight:700;color:#fff;
+}
+.nav-logo-text .top{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--wh);display:block;line-height:1.1;}
+.nav-logo-text .bot{font-family:'Noto Sans JP',sans-serif;font-size:9px;color:var(--wh2);letter-spacing:3px;display:block;}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none;}
+.nav-links a{color:var(--wh4);font-size:12px;font-weight:500;padding:6px 12px;border-radius:6px;transition:all .15s;letter-spacing:.2px;}
+.nav-links a:hover{color:var(--wh);background:var(--wh08);}
+.nav-cta{background:var(--red)!important;color:#fff!important;padding:8px 18px!important;border-radius:7px!important;font-weight:600!important;font-size:12px!important;margin-left:6px;transition:background .15s!important;}
+.nav-cta:hover{background:var(--red-h)!important;}
+/* mobile hamburger */
+.nav-ham{display:none;background:none;border:none;cursor:pointer;padding:6px;flex-direction:column;gap:5px;}
+.nav-ham span{display:block;width:20px;height:1.5px;background:var(--wh);border-radius:2px;transition:.3s;}
+.mob-nav{display:none;position:fixed;top:62px;left:0;right:0;background:rgba(10,10,10,.97);border-bottom:1px solid var(--bdr);padding:12px 16px;flex-direction:column;gap:2px;z-index:998;}
+.mob-nav.open{display:flex;}
+.mob-nav a{color:var(--wh4);font-size:15px;font-weight:500;padding:11px 14px;border-radius:8px;transition:all .15s;}
+.mob-nav a:hover{background:var(--wh08);color:var(--wh);}
+
+/* ═══════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════ */
+.btn{display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;border-radius:var(--r);font-family:'Inter',sans-serif;font-weight:600;transition:all .18s;text-decoration:none;}
+.btn-red{background:var(--red);color:#fff;padding:13px 28px;font-size:13px;letter-spacing:.4px;box-shadow:0 4px 18px rgba(200,16,46,.3);}
+.btn-red:hover{background:var(--red-h);transform:translateY(-1px);box-shadow:0 7px 22px rgba(200,16,46,.4);}
+.btn-ghost{background:transparent;color:var(--wh);padding:13px 28px;font-size:13px;border:1px solid var(--bdr2);letter-spacing:.2px;}
+.btn-ghost:hover{border-color:var(--wh4);background:var(--wh08);}
+.btn-sm{padding:9px 20px;font-size:12px;}
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:62px 48px 0;position:relative;overflow:hidden;
+  background:var(--bg);
+}
+.hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(200,16,46,.18) 0%,transparent 65%);right:-80px;top:50%;transform:translateY(-50%);pointer-events:none;}
+.hero-glow2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(200,16,46,.06) 0%,transparent 70%);left:-60px;bottom:-80px;filter:blur(30px);pointer-events:none;}
+.hero-grid-lines{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--wh04) 1px,transparent 1px),linear-gradient(90deg,var(--wh04) 1px,transparent 1px);background-size:56px 56px;}
+.hero-kanji{position:absolute;right:30px;top:50%;transform:translateY(-50%);font-family:'Noto Sans JP',sans-serif;font-size:360px;font-weight:900;color:rgba(200,16,46,.04);line-height:1;pointer-events:none;user-select:none;}
+.hero-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 420px;gap:72px;align-items:center;padding-bottom:72px;}
+/* Left */
+.hero-tag{display:inline-block;border:1px solid var(--red);color:var(--red);font-size:10px;font-weight:700;letter-spacing:5px;text-transform:uppercase;padding:7px 16px;border-radius:3px;margin-bottom:28px;opacity:0;animation:fadeUp .6s .1s forwards;}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(48px,6vw,88px);font-weight:900;line-height:1.0;color:var(--wh);letter-spacing:-.5px;opacity:0;animation:fadeUp .7s .2s forwards;}
+.hero-h1 .red{color:var(--red);}
+.hero-jp{font-family:'Noto Sans JP',sans-serif;font-size:12px;letter-spacing:7px;color:var(--wh2);margin:16px 0 24px;opacity:0;animation:fadeUp .6s .38s forwards;}
+.hero-desc{font-size:15px;color:var(--wh6);line-height:1.85;max-width:510px;margin-bottom:40px;font-weight:300;opacity:0;animation:fadeUp .6s .48s forwards;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:fadeUp .6s .58s forwards;}
+.hero-stats{display:flex;gap:52px;margin-top:56px;opacity:0;animation:fadeUp .6s .75s forwards;}
+.hstat-n{font-family:'Inter',sans-serif;font-size:34px;font-weight:800;color:var(--red);line-height:1;display:block;letter-spacing:-1px;}
+.hstat-l{font-size:10px;letter-spacing:3px;color:var(--wh2);text-transform:uppercase;margin-top:3px;display:block;}
+/* Right */
+.hero-card{background:var(--wh04);border:1px solid var(--bdr);border-radius:var(--rxl);padding:26px;opacity:0;animation:fadeUp .7s .42s forwards;}
+.hero-card-lbl{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--wh2);margin-bottom:16px;}
+.hero-tracks{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.ht-item{display:flex;align-items:center;gap:12px;background:var(--wh04);border:1px solid var(--bdr);border-radius:10px;padding:11px 14px;transition:all .18s;cursor:pointer;}
+.ht-item:hover{background:var(--red-dim);border-color:var(--red-bdr);}
+.ht-icon{width:32px;height:32px;border-radius:7px;background:var(--red-dim);border:1px solid var(--red-bdr);display:flex;align-items:center;justify-content:center;font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:700;color:var(--red);flex-shrink:0;}
+.ht-name{font-size:13px;font-weight:600;color:var(--wh);}
+.ht-sub{font-size:11px;color:var(--wh4);}
+.ht-arr{margin-left:auto;color:var(--wh2);font-size:13px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* ═══════════════════════════════════════
+   SECTIONS
+═══════════════════════════════════════ */
+.sec{padding:88px 48px;}
+.sec-a{background:var(--bg);}
+.sec-b{background:var(--bg2);}
+.sec-c{background:var(--bg3);}
+.wrap{max-width:1180px;margin:0 auto;}
+.sec-head{margin-bottom:48px;}
+.sec-tag{display:inline-flex;align-items:center;gap:9px;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
+.sec-tag::before{content:'';width:18px;height:1.5px;background:var(--red);}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,44px);font-weight:800;color:var(--wh);line-height:1.15;letter-spacing:-.3px;margin-bottom:10px;}
+.sec-sub{font-size:14px;color:var(--wh4);line-height:1.85;max-width:520px;font-weight:300;}
+
+/* ═══════════════════════════════════════
+   CAREERS
+═══════════════════════════════════════ */
+.career-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:1px;background:var(--bdr);}
+.career-card{background:var(--bg2);padding:26px 22px;position:relative;overflow:hidden;transition:background .2s;cursor:pointer;}
+.career-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .25s;transform-origin:left;}
+.career-card:hover{background:var(--bg3);}
+.career-card:hover::after{transform:scaleX(1);}
+.cc-icon{width:44px;height:44px;border-radius:10px;background:var(--red-dim);border:1px solid var(--red-bdr);display:flex;align-items:center;justify-content:center;font-family:'Noto Sans JP',sans-serif;font-size:16px;font-weight:700;color:var(--red);margin-bottom:16px;}
+.cc-num{position:absolute;top:16px;right:16px;font-size:10px;color:var(--wh2);font-weight:500;}
+.cc-title{font-size:14px;font-weight:700;color:var(--wh);margin-bottom:3px;}
+.cc-jp{font-family:'Noto Sans JP',sans-serif;font-size:10px;color:var(--red);letter-spacing:2px;margin-bottom:9px;}
+.cc-desc{font-size:12px;color:var(--wh4);line-height:1.8;font-weight:300;}
+.cc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:13px;}
+.cc-tag{font-size:10px;padding:3px 9px;background:var(--wh04);border:1px solid var(--bdr);border-radius:20px;color:var(--wh4);}
+
+/* ═══════════════════════════════════════
+   CV GUIDE
+═══════════════════════════════════════ */
+.cvg-layout{display:grid;grid-template-columns:1fr 380px;gap:56px;align-items:start;margin-bottom:56px;}
+/* Sample doc */
+.rs-wrap{position:sticky;top:82px;background:var(--bg4);border:1px solid var(--bdr2);border-radius:var(--rl);padding:20px;}
+.rs-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;}
+.rs-top span{font-size:10px;font-weight:600;color:var(--wh2);letter-spacing:2px;text-transform:uppercase;}
+.rs-badge{background:var(--red-dim);color:var(--red);font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;border:1px solid var(--red-bdr);}
+.rs-doc{background:#FAFAFA;border-radius:7px;padding:16px;font-family:'Noto Sans JP',sans-serif;}
+.rs-title{text-align:center;font-size:14px;font-weight:700;letter-spacing:7px;border-bottom:2px solid #374151;padding-bottom:5px;margin-bottom:5px;color:#111;}
+.rs-date{text-align:right;font-size:8px;color:#999;margin-bottom:7px;}
+.rst{width:100%;border-collapse:collapse;font-size:8.5px;color:#374151;}
+.rst td{border:1px solid #D1D5DB;padding:3px 5px;vertical-align:top;line-height:1.5;}
+.rst-lbl{background:#F3F4F6;font-weight:700;white-space:nowrap;width:52px;}
+.rst-photo{width:66px;height:80px;border:1px solid #D1D5DB;background:#F9FAFB;text-align:center;vertical-align:middle;font-size:7px;color:#9CA3AF;line-height:1.5;padding:5px;}
+.rs-shdr{background:#FEE2E2;font-weight:700;text-align:center;padding:2px;font-size:7.5px;color:#991B1B;}
+.nbadge{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:var(--red);color:#fff;font-size:8px;font-weight:700;vertical-align:middle;margin-left:2px;}
+/* Steps */
+.steps-list{display:flex;flex-direction:column;}
+.step-item{display:flex;gap:16px;position:relative;padding-bottom:24px;}
+.step-item:not(:last-child)::after{content:'';position:absolute;left:12px;top:28px;bottom:0;width:1px;background:var(--bdr2);}
+.step-dot{width:26px;height:26px;flex-shrink:0;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;box-shadow:0 2px 8px rgba(200,16,46,.3);position:relative;z-index:1;margin-top:2px;}
+.step-body{flex:1;}
+.step-title{font-size:14px;font-weight:700;color:var(--wh);margin-bottom:2px;}
+.step-jp{font-family:'Noto Sans JP',sans-serif;font-size:10px;color:var(--wh2);letter-spacing:2px;margin-bottom:6px;}
+.step-desc{font-size:12px;color:var(--wh4);line-height:1.85;}
+.step-tip{background:var(--red-dim);border-left:2px solid var(--red);border-radius:0 6px 6px 0;padding:8px 11px;margin-top:8px;font-size:11px;color:var(--wh6);line-height:1.7;}
+.step-tip strong{color:var(--red);}
+.step-ex{background:var(--wh04);border:1px solid var(--bdr);border-radius:6px;padding:7px 11px;margin-top:6px;font-size:11px;color:var(--wh2);font-style:italic;line-height:1.8;}
+.steps-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:44px;}
+/* Motive cards */
+.motive-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px;}
+.motive-card{background:var(--bg4);border:1px solid var(--bdr);border-radius:var(--rl);padding:24px;transition:border-color .2s;}
+.motive-card:hover{border-color:var(--red-bdr);}
+.motive-n{font-size:9px;font-weight:700;color:var(--red);letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;}
+.motive-t{font-size:14px;font-weight:700;color:var(--wh);margin-bottom:11px;}
+.motive-ex{background:var(--wh04);border-left:2px solid var(--red);border-radius:0 6px 6px 0;padding:9px 12px;font-size:11.5px;color:var(--wh6);line-height:1.8;font-style:italic;margin-bottom:9px;}
+.motive-tip{background:var(--red-dim);border-radius:6px;padding:9px 12px;font-size:11px;color:var(--wh6);line-height:1.7;}
+.motive-tip strong{color:var(--red);}
+
+/* ═══════════════════════════════════════
+   CV BUILDER
+═══════════════════════════════════════ */
+.cvb-layout{display:grid;grid-template-columns:1fr 400px;gap:44px;align-items:start;}
+.fsec-title{font-size:10px;font-weight:700;color:var(--red);letter-spacing:3px;text-transform:uppercase;margin:22px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--bdr);}
+.fsec-title:first-child{margin-top:0;}
+.fgroup{margin-bottom:14px;}
+.flabel{display:block;font-size:11px;font-weight:600;color:var(--wh6);margin-bottom:5px;letter-spacing:.2px;}
+.flabel .jp{font-family:'Noto Sans JP',sans-serif;color:var(--wh2);font-size:10px;font-weight:400;margin-left:5px;}
+.finput,.fselect,.ftarea{width:100%;background:var(--bg4);border:1px solid var(--bdr2);border-radius:var(--r);color:var(--wh);padding:10px 12px;font-family:'Inter','Noto Sans JP',sans-serif;font-size:13px;outline:none;transition:border-color .18s,box-shadow .18s;}
+.finput::placeholder,.ftarea::placeholder{color:var(--wh2);}
+.finput:focus,.fselect:focus,.ftarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(200,16,46,.1);}
+.fselect option{background:var(--bg4);}
+.ftarea{resize:vertical;min-height:72px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+/* Preview */
+.cvp-sticky{position:sticky;top:82px;}
+.cvp-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.cvp-hdr .label{font-size:11px;font-weight:600;color:var(--wh2);letter-spacing:1px;}
+.cvp-hdr .hint{font-size:10px;color:var(--wh2);}
+.rls{background:#FAFAFA;border-radius:var(--rl);padding:18px;box-shadow:0 0 30px rgba(200,16,46,.1),0 0 0 1px rgba(200,16,46,.08);font-family:'Noto Sans JP',sans-serif;position:relative;overflow:hidden;}
+.rls::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),#FF6080);}
+.rls-title{text-align:center;font-size:13px;font-weight:700;letter-spacing:7px;border-bottom:1.5px solid #ccc;padding-bottom:5px;margin-bottom:4px;color:#111;}
+.rls-date{text-align:right;font-size:7.5px;color:#999;margin-bottom:6px;}
+.rlst{width:100%;border-collapse:collapse;font-size:8.5px;color:#374151;}
+.rlst td{border:1px solid #D1D5DB;padding:3.5px 5px;vertical-align:top;}
+.rlst-lbl{background:#F3F4F6;font-weight:700;white-space:nowrap;color:#374151;width:52px;}
+.rlst-photo{width:66px;height:80px;border:1px solid #D1D5DB;background:#F9FAFB;text-align:center;vertical-align:middle;font-size:7px;color:#9CA3AF;line-height:1.5;padding:5px;}
+.rls-shdr{background:#FEE2E2;font-weight:700;text-align:center;padding:2px;font-size:7.5px;color:#991B1B;}
+.rls-tn{width:100%;border-collapse:collapse;font-family:'Noto Sans JP',sans-serif;}
+.rls-tn td{border:1px solid #D1D5DB;padding:3px 5px;font-size:8px;vertical-align:top;}
+
+/* ═══════════════════════════════════════
+   TABS
+═══════════════════════════════════════ */
+.tabs{display:flex;gap:0;background:var(--bg4);border:1px solid var(--bdr);border-radius:var(--r);padding:4px;width:fit-content;margin-bottom:32px;}
+.tab-btn{padding:8px 20px;border-radius:8px;font-size:12px;font-weight:600;color:var(--wh4);cursor:pointer;transition:all .18s;border:none;background:none;letter-spacing:.2px;}
+.tab-btn.on{background:var(--red);color:#fff;box-shadow:0 2px 10px rgba(200,16,46,.3);}
+.tab-btn:hover:not(.on){color:var(--wh);}
+.tab-pane{display:none;}
+.tab-pane.on{display:block;}
+
+/* ═══════════════════════════════════════
+   INTERVIEW QUESTIONS
+═══════════════════════════════════════ */
+.iq-list{display:flex;flex-direction:column;gap:9px;}
+.iq-card{background:var(--bg4);border:1px solid var(--bdr);border-radius:var(--rl);padding:20px 24px;transition:border-color .2s;}
+.iq-card:hover,.iq-card.open{border-color:var(--red-bdr);}
+.iq-card.open{border-left:3px solid var(--red);}
+.iq-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.iq-text{flex:1;}
+.iq-q{font-size:14px;font-weight:600;color:var(--wh);line-height:1.5;}
+.iq-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--wh2);margin-top:3px;}
+.iq-tog{flex-shrink:0;width:28px;height:28px;border-radius:7px;background:var(--red-dim);border:1px solid var(--red-bdr);color:var(--red);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .18s;line-height:1;}
+.iq-tog:hover{background:var(--red);color:#fff;}
+.iq-body{margin-top:13px;padding-top:13px;border-top:1px solid var(--bdr);display:none;}
+.iq-body.open{display:block;}
+.iq-ans{font-size:13px;color:var(--wh4);line-height:1.9;margin-bottom:9px;}
+.iq-tip{background:var(--red-dim);border-left:2px solid var(--red);border-radius:0 6px 6px 0;padding:9px 12px;font-size:11.5px;color:var(--wh6);line-height:1.7;}
+.iq-tip strong{color:var(--red);}
+
+/* Timeline */
+.tl{position:relative;padding-left:42px;}
+.tl::before{content:'';position:absolute;left:17px;top:0;bottom:0;width:1px;background:var(--bdr2);}
+.tl-item{position:relative;margin-bottom:24px;}
+.tl-dot{position:absolute;left:-33px;top:4px;width:28px;height:28px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:13px;z-index:1;box-shadow:0 0 0 3px var(--bg3);}
+.tl-time{font-size:10px;font-weight:700;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;}
+.tl-text{font-size:13px;color:var(--wh4);line-height:1.8;}
+.tl-jp{font-family:'Noto Sans JP',sans-serif;font-size:10px;color:var(--wh2);margin-top:2px;}
+
+/* Dos & Donts */
+.dd-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px;}
+.dd-box{background:var(--bg4);border:1px solid var(--bdr);border-radius:var(--rl);padding:22px;}
+.dd-box.dos-box{border-top:2px solid var(--green);}
+.dd-box.dont-box{border-top:2px solid var(--red);}
+.dd-title{font-size:13px;font-weight:700;margin-bottom:13px;}
+.dd-title.dos-t{color:var(--green);}
+.dd-title.dont-t{color:var(--red);}
+.dd-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:12px;color:var(--wh4);line-height:1.7;}
+.dd-ico{width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.dos-box .dd-ico{background:rgba(16,185,129,.15);color:var(--green);}
+.dont-box .dd-ico{background:rgba(200,16,46,.15);color:var(--red);}
+
+/* Videos */
+.vid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;}
+.vid-card{background:var(--bg4);border:1px solid var(--bdr);border-radius:var(--rl);overflow:hidden;transition:all .22s;}
+.vid-card:hover{border-color:var(--red-bdr);transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,16,46,.1);}
+.vid-embed{position:relative;padding-bottom:56.25%;background:#000;}
+.vid-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+.vid-meta{padding:14px 16px;}
+.vid-pill{display:inline-block;font-size:9px;font-weight:700;color:var(--red);background:var(--red-dim);border:1px solid var(--red-bdr);padding:2px 9px;border-radius:20px;margin-bottom:6px;letter-spacing:1px;}
+.vid-title{font-size:13px;font-weight:700;color:var(--wh);margin-bottom:4px;line-height:1.4;}
+.vid-desc{font-size:11px;color:var(--wh2);line-height:1.7;}
+
+/* ═══════════════════════════════════════
+   CULTURE
+═══════════════════════════════════════ */
+.cult-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:12px;}
+.cult-card{background:var(--bg4);border:1px solid var(--bdr);border-radius:var(--rl);padding:22px 20px;transition:all .2s;cursor:pointer;}
+.cult-card:hover{border-color:var(--red-bdr);background:var(--bg3);}
+.cult-icon{font-family:'Noto Sans JP',sans-serif;font-size:26px;color:var(--red);margin-bottom:10px;}
+.cult-title{font-size:14px;font-weight:700;color:var(--wh);margin-bottom:2px;}
+.cult-jp{font-family:'Noto Sans JP',sans-serif;font-size:10px;color:var(--wh2);letter-spacing:2px;margin-bottom:8px;}
+.cult-desc{font-size:12px;color:var(--wh4);line-height:1.85;}
+.cult-ex{background:var(--wh04);border-left:2px solid var(--red);border-radius:0 5px 5px 0;padding:7px 11px;margin-top:8px;font-size:11px;color:var(--wh2);line-height:1.7;font-style:italic;}
+.scenario-box{background:var(--bg4);border:1px solid var(--bdr);border-radius:var(--rxl);padding:28px;margin-top:32px;}
+.scenario-hdr{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.scenario-hdr h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--wh);}
+.day-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;}
+.day-slot{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--r);padding:13px;border-left:2px solid var(--red);}
+.day-time{font-size:9px;font-weight:700;color:var(--red);letter-spacing:2px;margin-bottom:4px;}
+.day-act{font-size:13px;font-weight:600;color:var(--wh);margin-bottom:2px;}
+.day-jp{font-family:'Noto Sans JP',sans-serif;font-size:9px;color:var(--wh2);margin-bottom:5px;}
+.day-desc{font-size:11px;color:var(--wh4);line-height:1.6;}
+
+/* ═══════════════════════════════════════
+   VOCABULARY
+═══════════════════════════════════════ */
+.vsearch{display:flex;max-width:360px;margin-bottom:18px;background:var(--bg4);border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;}
+.vsearch input{flex:1;border:none;outline:none;padding:10px 13px;font-family:'Inter','Noto Sans JP',sans-serif;font-size:13px;color:var(--wh);background:transparent;}
+.vsearch input::placeholder{color:var(--wh2);}
+.vsearch button{background:var(--red);color:#fff;border:none;padding:10px 18px;font-size:12px;font-weight:600;cursor:pointer;transition:background .18s;}
+.vsearch button:hover{background:var(--red-h);}
+.vfilters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
+.vf{padding:5px 13px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid var(--bdr);color:var(--wh2);background:none;cursor:pointer;transition:all .18s;}
+.vf.on,.vf:hover{background:var(--red);color:#fff;border-color:var(--red);}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:11px;}
+.vocab-card{background:var(--bg4);border:1px solid var(--bdr);border-radius:var(--rl);padding:18px 16px;transition:all .2s;}
+.vocab-card:hover{border-color:var(--red-bdr);transform:translateY(-2px);}
+.vc-kanji{font-family:'Noto Sans JP',sans-serif;font-size:34px;font-weight:700;color:var(--wh);line-height:1;margin-bottom:6px;display:block;}
+.vc-read{font-size:10px;color:var(--wh2);margin-bottom:3px;font-family:'Noto Sans JP',sans-serif;}
+.vc-mean{font-size:13px;font-weight:600;color:var(--wh);margin-bottom:4px;}
+.vc-ex{font-size:11px;color:var(--wh4);line-height:1.7;font-family:'Noto Sans JP',sans-serif;}
+.vc-cat{display:inline-block;font-size:9px;font-weight:600;color:var(--red);background:var(--red-dim);border:1px solid var(--red-bdr);padding:2px 8px;border-radius:20px;margin-top:7px;}
+
+/* ═══════════════════════════════════════
+   PROGRESS
+═══════════════════════════════════════ */
+.prog-layout{display:grid;grid-template-columns:210px 1fr;gap:14px;}
+.prog-side{background:var(--bg4);border:1px solid var(--bdr);border-radius:var(--rxl);padding:20px 16px;}
+.prog-avatar{width:50px;height:50px;border-radius:11px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Noto Sans JP',sans-serif;font-size:19px;font-weight:700;color:#fff;margin-bottom:11px;box-shadow:0 4px 12px rgba(200,16,46,.3);}
+.prog-name{font-size:15px;font-weight:700;color:var(--wh);}
+.prog-lvl{font-size:9px;color:var(--wh2);letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;}
+.prog-nav{list-style:none;}
+.prog-nav li{padding:8px 10px;font-size:12px;color:var(--wh2);cursor:pointer;border-radius:6px;margin-bottom:2px;transition:all .18s;}
+.prog-nav li.on{background:var(--red-dim);color:var(--red);font-weight:600;border-left:2px solid var(--red);}
+.prog-nav li:hover:not(.on){background:var(--wh04);color:var(--wh);}
+.prog-main{background:var(--bg4);border:1px solid var(--bdr);border-radius:var(--rxl);padding:24px;}
+.pt{margin-bottom:20px;}
+.pt-row{display:flex;justify-content:space-between;margin-bottom:6px;}
+.pt-lbl{font-size:13px;font-weight:500;color:var(--wh);}
+.pt-pct{font-size:13px;font-weight:700;color:var(--red);}
+.pt-bar{height:5px;background:var(--wh04);border-radius:3px;overflow:hidden;}
+.pt-fill{height:100%;background:linear-gradient(90deg,var(--red),#FF607A);border-radius:3px;transition:width 1.5s cubic-bezier(.4,0,.2,1);}
+.ach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:22px;}
+.ach{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--r);padding:13px 9px;text-align:center;transition:all .18s;}
+.ach:hover{border-color:var(--red-bdr);}
+.ach-icon{font-size:20px;display:block;margin-bottom:5px;}
+.ach-lbl{font-size:9px;color:var(--wh2);font-weight:500;}
+.ach-locked{opacity:.22;filter:grayscale(1);}
+
+/* ═══════════════════════════════════════
+   QUIZ
+═══════════════════════════════════════ */
+.quiz-wrap{max-width:620px;margin:0 auto;}
+.quiz-card{background:var(--bg4);border:1px solid var(--bdr);border-radius:var(--rxl);padding:38px;box-shadow:0 0 50px rgba(200,16,46,.07);}
+.quiz-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.quiz-pb{flex:1;height:3px;background:var(--wh04);border-radius:2px;margin:0 13px;overflow:hidden;}
+.quiz-pb-fill{height:100%;background:var(--red);transition:width .4s;}
+.quiz-num{font-size:11px;font-weight:600;color:var(--wh2);white-space:nowrap;}
+.quiz-cat{font-size:9px;font-weight:700;color:var(--red);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;}
+.quiz-q{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--wh);line-height:1.45;margin-bottom:5px;}
+.quiz-qjp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--wh2);margin-bottom:24px;}
+.quiz-opts{display:flex;flex-direction:column;gap:8px;}
+.quiz-opt{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 16px;font-size:13px;color:var(--wh4);cursor:pointer;transition:all .18s;text-align:left;display:flex;align-items:center;gap:11px;}
+.quiz-opt:hover:not([disabled]){border-color:var(--red-bdr);color:var(--wh);background:var(--red-dim);}
+.quiz-opt.correct{border-color:var(--green);background:rgba(16,185,129,.08);color:#6EE7B7;}
+.quiz-opt.wrong{border-color:var(--red);background:var(--red-dim);color:var(--red);}
+.qltr{width:24px;height:24px;border-radius:6px;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.quiz-fb{margin-top:12px;padding:11px 15px;border-radius:var(--r);font-size:12.5px;line-height:1.8;display:none;}
+.quiz-fb.show{display:block;}
+.quiz-fb.ok{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#6EE7B7;}
+.quiz-fb.bad{background:var(--red-dim);border:1px solid var(--red-bdr);color:var(--wh6);}
+.quiz-footer{display:flex;justify-content:space-between;align-items:center;margin-top:20px;}
+.quiz-score{font-size:12px;color:var(--wh2);}
+.quiz-score strong{color:var(--wh);}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer{background:var(--bg2);border-top:1px solid var(--bdr);padding:60px 48px 34px;}
+.footer-inner{max-width:1180px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px;}
+.footer-logo{display:flex;align-items:center;gap:9px;margin-bottom:14px;}
+.footer-logo-box{width:32px;height:32px;border-radius:7px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:700;color:#fff;}
+.footer-logo-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--wh);}
+.footer-desc{font-size:13px;color:var(--wh2);line-height:1.9;max-width:260px;font-weight:300;}
+.fcol h4{font-size:9px;font-weight:700;color:var(--red);letter-spacing:4px;text-transform:uppercase;margin-bottom:12px;}
+.fcol ul{list-style:none;}
+.fcol li{margin-bottom:8px;}
+.fcol a{font-size:13px;color:var(--wh2);text-decoration:none;transition:color .18s;}
+.fcol a:hover{color:var(--wh);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid var(--bdr);font-size:11px;color:var(--wh2);letter-spacing:.3px;}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media(max-width:900px){
+  .nav{padding:0 14px;}
+  .nav-links{display:none;}
+  .nav-ham{display:flex;}
+  .sec{padding:68px 16px;}
+  .hero{padding:62px 16px 0;}
+  .hero-inner{grid-template-columns:1fr;gap:36px;padding-bottom:52px;}
+  .hero-kanji,.hero-glow{display:none;}
+  .cvg-layout,.cvb-layout,.prog-layout{grid-template-columns:1fr;}
+  .steps-3col{grid-template-columns:1fr;}
+  .dd-grid,.motive-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:24px;}
+  .ach-grid{grid-template-columns:1fr 1fr;}
+  .day-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-box">技</div>
+    <div class="nav-logo-text">
+      <span class="top">技道 Gidō</span>
+      <span class="bot">日本ICT研修プラットフォーム</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#careers">Careers</a></li>
+    <li><a href="#cvguide">CV Guide</a></li>
+    <li><a href="#cvbuild">CV Builder</a></li>
+    <li><a href="#interview">Interview</a></li>
+    <li><a href="#culture">Culture</a></li>
+    <li><a href="#vocab">日本語</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+    <li><a href="#cvbuild" class="nav-cta">無料で始める</a></li>
+  </ul>
+  <button class="nav-ham" onclick="toggleNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<nav class="mob-nav" id="mobNav">
+  <a href="#careers"  onclick="closeNav()">Careers</a>
+  <a href="#cvguide"  onclick="closeNav()">CV Guide</a>
+  <a href="#cvbuild"  onclick="closeNav()">CV Builder</a>
+  <a href="#interview" onclick="closeNav()">Interview</a>
+  <a href="#culture"  onclick="closeNav()">Culture</a>
+  <a href="#vocab"    onclick="closeNav()">日本語</a>
+  <a href="#quiz"     onclick="closeNav()">Quiz</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero" class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-kanji">技</div>
+  <div class="hero-inner wrap">
+    <div>
+      <div class="hero-tag">Japan ICT Career Platform — 日本ICT研修</div>
+      <h1 class="hero-h1">Launch Your<br>Career in<br><span class="red">Japanese Tech</span></h1>
+      <p class="hero-jp">日本のICT業界への道 · 技道</p>
+      <p class="hero-desc">Complete training for Software Engineering, Cybersecurity, Web Development, AI/ML and more — designed specifically for the Japanese ICT industry. Build a real 履歴書, master interviews, and learn workplace culture.</p>
+      <div class="hero-btns">
+        <a href="#careers" class="btn btn-red">Explore Careers →</a>
+        <a href="#cvguide" class="btn btn-ghost">CV Writing Guide</a>
+      </div>
+      <div class="hero-stats">
+        <div><span class="hstat-n">12+</span><span class="hstat-l">ICT Tracks</span></div>
+        <div><span class="hstat-n">200+</span><span class="hstat-l">Lessons</span></div>
+        <div><span class="hstat-n">N2</span><span class="hstat-l">Business JP</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="hero-card">
+        <div class="hero-card-lbl">Top ICT Tracks — 主要コース</div>
+        <ul class="hero-tracks" id="heroTracks"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CAREERS ═══ -->
+<section id="careers" class="sec sec-b">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Career Tracks — キャリアコース</div>
+      <h2 class="sec-title">Choose Your ICT Specialization</h2>
+      <p class="sec-sub">Structured learning paths aligned with Japan's top tech companies — from Tokyo startups to global enterprises.</p>
+    </div>
+    <div class="career-grid" id="careerGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ CV GUIDE ═══ -->
+<section id="cvguide" class="sec sec-a">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">履歴書 Complete Guide — CV書き方ガイド</div>
+      <h2 class="sec-title">How to Write a Japanese Resume</h2>
+      <p class="sec-sub">Step-by-step guide based on official Japanese CV standards — every field explained with tips and real examples for ICT applicants.</p>
+    </div>
+    <!-- Steps 1–5 + sample doc -->
+    <div class="cvg-layout">
+      <div class="steps-list" id="cvS1"></div>
+      <div class="rs-wrap">
+        <div class="rs-top"><span>Sample 履歴書</span><span class="rs-badge">Official Format</span></div>
+        <div class="rs-doc">
+          <div class="rs-title">履　歴　書</div>
+          <div class="rs-date">令和7年 3月 20日現在 <span class="nbadge">①</span></div>
+          <table class="rst">
+            <tr>
+              <td class="rst-lbl">ふりがな</td>
+              <td colspan="2" style="font-size:9px;">やまだ　たろう <span class="nbadge">②</span></td>
+              <td rowspan="3" class="rst-photo">写真<br>縦36-40<br>横24-30<br>mm<br><span class="nbadge" style="width:12px;height:12px;font-size:7px;">⑨</span></td>
+            </tr>
+            <tr><td class="rst-lbl">氏名</td><td colspan="2" style="font-size:13px;font-weight:700;">山田 太郎</td></tr>
+            <tr>
+              <td class="rst-lbl">生年月日<span class="nbadge">③</span></td>
+              <td>1995.04.01 生</td>
+              <td>性別<span class="nbadge">④</span> 男</td>
+            </tr>
+            <tr><td class="rst-lbl">現住所<span class="nbadge">⑤</span></td><td colspan="3">〒100-0001 Tokyo, Japan</td></tr>
+            <tr>
+              <td class="rst-lbl">電話<span class="nbadge">⑥</span></td><td>+81-90-XXXX-XXXX</td>
+              <td class="rst-lbl">E-mail<span class="nbadge">⑦</span></td><td style="font-size:7.5px;">you@email.com</td>
+            </tr>
+            <tr><td class="rst-lbl">連絡先<span class="nbadge">⑧</span></td><td colspan="3">同上</td></tr>
+          </table>
+          <br>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+            <div>
+              <div class="rs-shdr">学歴・職歴</div>
+              <table class="rst">
+                <tr><td style="border:1px solid #D1D5DB;padding:2px 3px;font-size:7.5px;">2017.04 ○○大学 情報学部 入学</td></tr>
+                <tr><td style="border:1px solid #D1D5DB;padding:2px 3px;font-size:7.5px;">2021.03 ○○大学 情報学部 卒業</td></tr>
+                <tr><td style="border:1px solid #D1D5DB;padding:1px 3px;background:#FEE2E2;font-weight:700;font-size:7px;text-align:center;color:#991B1B;">職歴</td></tr>
+                <tr><td style="border:1px solid #D1D5DB;padding:2px 3px;font-size:7.5px;">2021.04 ABC株式会社 入社</td></tr>
+                <tr><td style="border:1px solid #D1D5DB;padding:2px 3px;font-size:7px;text-align:center;color:#9CA3AF;">以上</td></tr>
+              </table>
+            </div>
+            <div>
+              <div class="rs-shdr">免許・資格</div>
+              <table class="rst">
+                <tr><td style="border:1px solid #D1D5DB;padding:2px 3px;font-size:7.5px;">2022.06 JLPT N2 合格</td></tr>
+                <tr><td style="border:1px solid #D1D5DB;padding:2px 3px;font-size:7.5px;">2023.03 基本情報技術者 合格</td></tr>
+              </table>
+              <div class="rs-shdr" style="margin-top:3px;">志望動機</div>
+              <table class="rst"><tr><td style="border:1px solid #D1D5DB;padding:4px 3px;font-size:7.5px;line-height:1.5;">貴社のICT事業に魅力を感じ、開発経験を活かして貢献したいと考えております。</td></tr></table>
+              <div class="rs-shdr" style="margin-top:3px;">本人希望</div>
+              <table class="rst"><tr><td style="border:1px solid #D1D5DB;padding:2px 3px;font-size:7.5px;">貴社規定に従います</td></tr></table>
+            </div>
+          </div>
+        </div>
+        <p style="text-align:center;font-size:9.5px;color:var(--wh2);margin-top:9px;">Circled numbers ①–⑨ match the steps on the left</p>
+      </div>
+    </div>
+    <!-- Steps 6-9 and academic/work/certs in 3 cols -->
+    <div class="steps-3col">
+      <div class="steps-list" id="cvS2"></div>
+      <div class="steps-list" id="cvS3"></div>
+      <div class="steps-list" id="cvS4"></div>
+    </div>
+    <!-- Motivation guide -->
+    <div>
+      <div class="sec-tag" style="margin-bottom:10px;">Motivation Writing Guide — 志望動機の書き方</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--wh);margin-bottom:6px;">志望動機 · アピールポイント Templates</h3>
+      <p style="font-size:13px;color:var(--wh4);margin-bottom:0;">Use these proven templates for the motivation section of your 履歴書 and interviews.</p>
+      <div class="motive-grid" id="motiveGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CV BUILDER ═══ -->
+<section id="cvbuild" class="sec sec-b">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">履歴書 Builder — リアルタイムプレビュー</div>
+      <h2 class="sec-title">Build Your Japanese CV</h2>
+      <p class="sec-sub">Fill in the form — your 履歴書 preview updates live following all official Japanese standards.</p>
+    </div>
+    <div class="cvb-layout">
+      <!-- Form -->
+      <div>
+        <div class="fsec-title">① Personal Information — 個人情報</div>
+        <div class="frow">
+          <div class="fgroup"><label class="flabel">Last Name <span class="jp">姓</span></label><input class="finput" id="cvLast" placeholder="Yamada" oninput="updateCV()"></div>
+          <div class="fgroup"><label class="flabel">First Name <span class="jp">名</span></label><input class="finput" id="cvFirst" placeholder="Taro" oninput="updateCV()"></div>
+        </div>
+        <div class="frow">
+          <div class="fgroup"><label class="flabel">Last Name Kana <span class="jp">姓かな</span></label><input class="finput" id="cvLK" placeholder="やまだ" oninput="updateCV()"></div>
+          <div class="fgroup"><label class="flabel">First Name Kana <span class="jp">名かな</span></label><input class="finput" id="cvFK" placeholder="たろう" oninput="updateCV()"></div>
+        </div>
+        <div class="frow">
+          <div class="fgroup"><label class="flabel">Date of Birth <span class="jp">生年月日</span></label><input type="date" class="finput" id="cvDOB" oninput="updateCV()"></div>
+          <div class="fgroup"><label class="flabel">Gender <span class="jp">性別</span></label>
+            <select class="fselect" id="cvGender" onchange="updateCV()">
+              <option value="">Select / 選択</option>
+              <option value="Male / 男">Male / 男</option>
+              <option value="Female / 女">Female / 女</option>
+            </select>
+          </div>
+        </div>
+        <div class="fgroup"><label class="flabel">Current Address <span class="jp">現住所</span></label><input class="finput" id="cvAddr" placeholder="Tokyo, Japan" oninput="updateCV()"></div>
+        <div class="frow">
+          <div class="fgroup"><label class="flabel">Phone (with country code) <span class="jp">電話</span></label><input class="finput" id="cvPhone" placeholder="+94-70-XXX-XXXX" oninput="updateCV()"></div>
+          <div class="fgroup"><label class="flabel">Email <span class="jp">メール</span></label><input class="finput" id="cvEmail" placeholder="you@example.com" oninput="updateCV()"></div>
+        </div>
+        <div class="fgroup"><label class="flabel">ICT Specialization <span class="jp">専門分野</span></label>
+          <select class="fselect" id="cvSpec" onchange="updateCV()">
+            <option value="Software Engineer / ソフトウェアエンジニア">Software Engineer / ソフトウェアエンジニア</option>
+            <option value="Cybersecurity Specialist / セキュリティエンジニア">Cybersecurity Specialist / セキュリティエンジニア</option>
+            <option value="Web Developer / ウェブ開発者">Web Developer / ウェブ開発者</option>
+            <option value="AI/ML Engineer / AIエンジニア">AI/ML Engineer / AIエンジニア</option>
+            <option value="Cloud Engineer / クラウドエンジニア">Cloud Engineer / クラウドエンジニア</option>
+            <option value="Data Scientist / データサイエンティスト">Data Scientist / データサイエンティスト</option>
+          </select>
+        </div>
+        <div class="fsec-title">② Academic &amp; Work History — 学歴・職歴</div>
+        <div class="fgroup"><label class="flabel">Academic History <span class="jp">学歴（古い順）</span></label>
+          <textarea class="ftarea" id="cvEdu" placeholder="2017.04  ○○University, Dept. of Information Science  入学&#10;2021.03  ○○University  卒業" oninput="updateCV()"></textarea></div>
+        <div class="fgroup"><label class="flabel">Work History <span class="jp">職歴</span></label>
+          <textarea class="ftarea" id="cvExp" placeholder="2021.04  ABC Corporation, IT Dept  入社&#10;2024.10  退社" oninput="updateCV()"></textarea></div>
+        <div class="fsec-title">③ Qualifications &amp; Motivation — 資格・志望動機</div>
+        <div class="fgroup"><label class="flabel">Licenses &amp; Qualifications <span class="jp">免許・資格</span></label>
+          <input class="finput" id="cvCert" placeholder="2022.06 JLPT N2 合格,  2023.03 基本情報技術者 合格" oninput="updateCV()"></div>
+        <div class="fgroup"><label class="flabel">Motivation for Applying <span class="jp">志望動機</span></label>
+          <textarea class="ftarea" id="cvMotive" placeholder="I am very attracted to your company's involvement in [ICT field]..." oninput="updateCV()"></textarea></div>
+        <div class="fgroup"><label class="flabel">Special Skills <span class="jp">特技</span></label>
+          <input class="finput" id="cvSkills" placeholder="Python programming, UI/UX design..." oninput="updateCV()"></div>
+        <div class="fgroup"><label class="flabel">Personal Requests <span class="jp">本人希望</span></label>
+          <input class="finput" id="cvReq" value="貴社規定に従います" oninput="updateCV()"></div>
+        <div style="display:flex;gap:11px;margin-top:10px;flex-wrap:wrap;">
+          <button class="btn btn-red btn-sm" onclick="updateCV()">Refresh Preview</button>
+          <button class="btn btn-ghost btn-sm" onclick="printCV()">🖨 Print / PDF</button>
+        </div>
+      </div>
+      <!-- Live preview -->
+      <div class="cvp-sticky">
+        <div class="cvp-hdr"><span class="label">Live Preview</span><span class="hint">Updates as you type</span></div>
+        <div class="rls" id="rlsDoc">
+          <div class="rls-title">履　歴　書</div>
+          <div class="rls-date" id="rlDate">令和 __ 年 __ 月 __ 日現在</div>
+          <table class="rlst">
+            <tr>
+              <td class="rlst-lbl">ふりがな</td>
+              <td colspan="2" id="rlKana" style="font-size:9px;">やまだ　たろう</td>
+              <td rowspan="3" class="rlst-photo">写真貼付<br>縦36-40mm<br>横24-30mm<br>3ヶ月以内</td>
+            </tr>
+            <tr><td class="rlst-lbl">氏名</td><td colspan="2" id="rlName" style="font-size:13px;font-weight:700;">山田 太郎</td></tr>
+            <tr>
+              <td class="rlst-lbl">生年月日</td>
+              <td id="rlDOB" style="font-size:8.5px;">年　月　日　生</td>
+              <td id="rlGender" style="font-size:8.5px;">性別</td>
+            </tr>
+            <tr><td class="rlst-lbl">現住所</td><td colspan="3" id="rlAddr" style="font-size:8.5px;">〒000-0000</td></tr>
+            <tr>
+              <td class="rlst-lbl">電話</td><td id="rlPhone" style="font-size:8.5px;">—</td>
+              <td class="rlst-lbl">E-mail</td><td id="rlEmail" style="font-size:8px;">—</td>
+            </tr>
+            <tr><td class="rlst-lbl">連絡先</td><td colspan="3" style="font-size:8.5px;">同上</td></tr>
+          </table>
+          <br>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+            <div>
+              <div class="rls-shdr">学歴・職歴</div>
+              <table class="rls-tn">
+                <tr><td id="rlEdu">—</td></tr>
+                <tr><td style="background:#FEE2E2;font-weight:700;font-size:7.5px;color:#991B1B;text-align:center;padding:2px;">職歴</td></tr>
+                <tr><td id="rlExp">—</td></tr>
+                <tr><td style="text-align:center;color:#9CA3AF;font-size:7px;padding:2px;">以上</td></tr>
+              </table>
+            </div>
+            <div>
+              <div class="rls-shdr">免許・資格</div>
+              <table class="rls-tn">
+                <tr><td id="rlCert">—</td></tr>
+                <tr><td id="rlSpec" style="font-size:7.5px;">専門分野</td></tr>
+              </table>
+              <div class="rls-shdr" style="margin-top:3px;">志望動機・特技</div>
+              <table class="rls-tn">
+                <tr><td id="rlMotive" style="min-height:40px;">—</td></tr>
+                <tr><td id="rlSkills">—</td></tr>
+              </table>
+              <div class="rls-shdr" style="margin-top:3px;">本人希望</div>
+              <table class="rls-tn">
+                <tr><td id="rlReq">貴社規定に従います</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INTERVIEW ═══ -->
+<section id="interview" class="sec sec-a">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Interview Preparation — 面接対策</div>
+      <h2 class="sec-title">Ace the Japanese Interview</h2>
+      <p class="sec-sub">Common questions, etiquette rules, and curated video resources — everything you need to succeed.</p>
+    </div>
+    <div class="tabs" id="intTabs"></div>
+    <div id="intPanels"></div>
+  </div>
+</section>
+
+<!-- ═══ CULTURE ═══ -->
+<section id="culture" class="sec sec-b">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Business Culture — ビジネス文化</div>
+      <h2 class="sec-title">Japanese Business Culture Deep Dive</h2>
+      <p class="sec-sub">Master the unwritten rules of the Japanese tech workplace — from daily greetings to consensus-building.</p>
+    </div>
+    <div class="tabs" id="cultTabs"></div>
+    <div id="cultPanels"></div>
+  </div>
+</section>
+
+<!-- ═══ VOCABULARY ═══ -->
+<section id="vocab" class="sec sec-a">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">日本語 Vocabulary — ICT職場の言葉</div>
+      <h2 class="sec-title">ICT Workplace Japanese</h2>
+      <p class="sec-sub">Essential words and phrases for daily life in a Japanese tech company.</p>
+    </div>
+    <div class="vsearch"><input id="vsInput" placeholder="Search words... 検索" oninput="filterVocab()"><button onclick="filterVocab()">検索</button></div>
+    <div class="vfilters" id="vfilters"></div>
+    <div class="vocab-grid" id="vocabGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ PROGRESS ═══ -->
+<section id="progress" class="sec sec-b">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Your Progress — 学習進捗</div>
+      <h2 class="sec-title">Learning Dashboard</h2>
+      <p class="sec-sub">Track your journey to Japan's ICT industry.</p>
+    </div>
+    <div class="prog-layout">
+      <div class="prog-side">
+        <div class="prog-avatar">学</div>
+        <div class="prog-name">Your Profile</div>
+        <div class="prog-lvl">Beginner Level</div>
+        <ul class="prog-nav">
+          <li class="on">Overview</li>
+          <li>Courses</li>
+          <li>Vocabulary</li>
+          <li>Interview Prep</li>
+          <li>Achievements</li>
+        </ul>
+      </div>
+      <div class="prog-main">
+        <div class="pt"><div class="pt-row"><span class="pt-lbl">Software Engineering</span><span class="pt-pct">42%</span></div><div class="pt-bar"><div class="pt-fill" data-pct="42" style="width:0"></div></div></div>
+        <div class="pt"><div class="pt-row"><span class="pt-lbl">Business Japanese (JLPT)</span><span class="pt-pct">28%</span></div><div class="pt-bar"><div class="pt-fill" data-pct="28" style="width:0"></div></div></div>
+        <div class="pt"><div class="pt-row"><span class="pt-lbl">Interview Preparation</span><span class="pt-pct">65%</span></div><div class="pt-bar"><div class="pt-fill" data-pct="65" style="width:0"></div></div></div>
+        <div class="pt"><div class="pt-row"><span class="pt-lbl">Business Culture</span><span class="pt-pct">55%</span></div><div class="pt-bar"><div class="pt-fill" data-pct="55" style="width:0"></div></div></div>
+        <div class="pt"><div class="pt-row"><span class="pt-lbl">履歴書 Completion</span><span class="pt-pct">80%</span></div><div class="pt-bar"><div class="pt-fill" data-pct="80" style="width:0"></div></div></div>
+        <div class="ach-grid">
+          <div class="ach"><span class="ach-icon">🎌</span><div class="ach-lbl">Japan Ready</div></div>
+          <div class="ach"><span class="ach-icon">💻</span><div class="ach-lbl">First Code</div></div>
+          <div class="ach ach-locked"><span class="ach-icon">🏆</span><div class="ach-lbl">Interview Master</div></div>
+          <div class="ach ach-locked"><span class="ach-icon">📄</span><div class="ach-lbl">Perfect CV</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUIZ ═══ -->
+<section id="quiz" class="sec sec-a">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Knowledge Quiz — 知識テスト</div>
+      <h2 class="sec-title">Test Your Knowledge</h2>
+      <p class="sec-sub">Japanese ICT industry, culture, and resume knowledge — how ready are you?</p>
+    </div>
+    <div class="quiz-wrap">
+      <div class="quiz-card" id="quizCard">
+        <div class="quiz-top">
+          <span class="quiz-num" id="qTxt">Question 1</span>
+          <div class="quiz-pb"><div class="quiz-pb-fill" id="qProg" style="width:12.5%"></div></div>
+          <span class="quiz-num" id="qNum">1 / 8</span>
+        </div>
+        <div class="quiz-cat" id="qCat"></div>
+        <div class="quiz-q" id="qQ"></div>
+        <div class="quiz-qjp" id="qJP"></div>
+        <div class="quiz-opts" id="qOpts"></div>
+        <div class="quiz-fb" id="qFB"></div>
+        <div class="quiz-footer">
+          <span class="quiz-score"><strong id="qScore">0</strong> / <strong id="qTotal">0</strong> correct</span>
+          <button class="btn btn-red btn-sm" id="qNext" onclick="nextQ()" style="display:none;">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-box">技</div>
+          <span class="footer-logo-name">技道 Gidō</span>
+        </div>
+        <p class="footer-desc">Your complete guide to building a career in Japan's technology industry — from 履歴書 to job offer. 技道 = The Way of Technology.</p>
+      </div>
+      <div class="fcol"><h4>Tracks</h4><ul>
+        <li><a href="#careers">Software Engineering</a></li>
+        <li><a href="#careers">Cybersecurity</a></li>
+        <li><a href="#careers">Web Development</a></li>
+        <li><a href="#careers">AI / Machine Learning</a></li>
+        <li><a href="#careers">Cloud & DevOps</a></li>
+      </ul></div>
+      <div class="fcol"><h4>Tools</h4><ul>
+        <li><a href="#cvguide">CV Writing Guide</a></li>
+        <li><a href="#cvbuild">履歴書 Builder</a></li>
+        <li><a href="#interview">Interview Prep</a></li>
+        <li><a href="#culture">Culture Guide</a></li>
+        <li><a href="#vocab">Vocabulary</a></li>
+      </ul></div>
+      <div class="fcol"><h4>Resources</h4><ul>
+        <li><a href="#">IPA Certifications</a></li>
+        <li><a href="#">JLPT Guide</a></li>
+        <li><a href="#">Visa Information</a></li>
+        <li><a href="#">Salary Guide</a></li>
+        <li><a href="#">Company Research</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 技道 Gidō — Japan ICT Career Training Platform</span>
+      <span>日本のICT業界への最短ルート</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+'use strict';
+
+/* ── NAV ── */
+function toggleNav(){document.getElementById('mobNav').classList.toggle('open');}
+function closeNav(){document.getElementById('mobNav').classList.remove('open');}
+
+/* ── HERO TRACKS ── */
+var heroTrackData=[
+  {i:'ソ',t:'Software Engineering',s:'Java · Python · Spring'},
+  {i:'セ',t:'Cybersecurity',s:'CISSP · Pen Testing · SOC'},
+  {i:'ウ',t:'Web Development',s:'React · Rails · Vue.js'},
+  {i:'AI',t:'AI & Machine Learning',s:'TensorFlow · PyTorch'},
+  {i:'ク',t:'Cloud & DevOps',s:'AWS · Docker · Kubernetes'},
+];
+document.getElementById('heroTracks').innerHTML=heroTrackData.map(function(t){
+  return '<li class="ht-item"><div class="ht-icon">'+t.i+'</div><div><div class="ht-name">'+t.t+'</div><div class="ht-sub">'+t.s+'</div></div><div class="ht-arr">›</div></li>';
+}).join('');
+
+/* ── CAREERS ── */
+var careerData=[
+  {i:'ソ',n:'01',t:'Software Engineering',jp:'ソフトウェア開発',d:'Enterprise systems, mobile apps, cloud services. Java, Python, design patterns used by NTT, Fujitsu, LINE.',tags:['Java','Python','Spring','Git']},
+  {i:'セ',n:'02',t:'Cybersecurity',jp:'セキュリティ',d:'Protect critical infrastructure. Pen testing, CSIRT operations, Japan\'s Cybersecurity Basic Act.',tags:['CISSP','IPA SEC','Pen Testing','SOC']},
+  {i:'ウ',n:'03',t:'Web Development',jp:'ウェブ開発',d:'Frontend and backend for Japan\'s e-commerce and SaaS. React, Vue.js, Ruby on Rails.',tags:['React','Rails','Vue.js','SQL']},
+  {i:'AI',n:'04',t:'AI & Machine Learning',jp:'人工知能・機械学習',d:'Work with RIKEN, Sony, Toyota AI teams. TensorFlow, PyTorch, and Japan\'s AI regulatory context.',tags:['Python','TensorFlow','MLOps','Data']},
+  {i:'ク',n:'05',t:'Cloud & DevOps',jp:'クラウド・デブオプス',d:'AWS, Azure, GCP in Japan\'s enterprise IT. CI/CD pipelines and ITIL-aligned operations.',tags:['AWS','Docker','K8s','CI/CD']},
+  {i:'デ',n:'06',t:'Data Science',jp:'データサイエンス',d:'Analytics for Japan\'s retail, finance, manufacturing. SQL, Tableau, statistics with Japanese datasets.',tags:['SQL','Python','Tableau','Stats']},
+  {i:'ネ',n:'07',t:'Network Engineering',jp:'ネットワーク技術',d:'Enterprise networks for Japan\'s large corporations. Cisco, NTT infrastructure, CCNA/CCNP.',tags:['Cisco','CCNA','TCP/IP','Firewall']},
+  {i:'ゲ',n:'08',t:'Game Development',jp:'ゲーム開発',d:'Break into Japan\'s gaming industry. Unity, Unreal Engine — Nintendo, Capcom, FromSoftware.',tags:['Unity','C#','Unreal','Design']},
+  {i:'モ',n:'09',t:'Mobile Development',jp:'モバイル開発',d:'iOS and Android for Japan\'s mobile-first consumers. Swift, Kotlin, Flutter, LINE Mini Apps.',tags:['Swift','Kotlin','Flutter','LINE']},
+  {i:'組',n:'10',t:'Embedded Systems',jp:'組み込みシステム',d:'Toyota, Panasonic, Hitachi. C/C++, RTOS, and automotive standards like AUTOSAR.',tags:['C/C++','RTOS','IoT','AUTOSAR']},
+  {i:'プ',n:'11',t:'Project Management',jp:'プロジェクト管理',d:'Lead Japanese IT projects using PMP. Nemawashi culture, waterfall-agile hybrids.',tags:['PMP','Agile','Scrum','PMBOK']},
+  {i:'サ',n:'12',t:'IT Support & Admin',jp:'サポート・管理',d:'Entry path into ICT. Help Desk, System Admin, IPA Fundamental IT Engineer Exam.',tags:['IPA FE','Server','Help Desk','ITIL']},
+];
+document.getElementById('careerGrid').innerHTML=careerData.map(function(c){
+  return '<div class="career-card"><div class="cc-icon">'+c.i+'</div><span class="cc-num">'+c.n+'</span><div class="cc-title">'+c.t+'</div><div class="cc-jp">'+c.jp+'</div><div class="cc-desc">'+c.d+'</div><div class="cc-tags">'+c.tags.map(function(t){return '<span class="cc-tag">'+t+'</span>';}).join('')+'</div></div>';
+}).join('');
+
+/* ── CV GUIDE STEPS ── */
+function buildSteps(data,containerId){
+  var el=document.getElementById(containerId);
+  if(!el)return;
+  el.innerHTML=data.map(function(s){
+    return '<div class="step-item"><div class="step-dot">'+s.n+'</div><div class="step-body"><div class="step-title">'+s.title+'</div><div class="step-jp">'+s.jp+'</div><div class="step-desc">'+s.desc+'</div><div class="step-tip">'+s.tip+'</div><div class="step-ex">'+s.ex+'</div></div></div>';
+  }).join('');
+}
+buildSteps([
+  {n:'①',title:'Submission Date — 提出日',jp:'ていしゅつび',desc:'Enter the exact date you will submit in Year/Month/Day. Use Japanese imperial era (令和) format.',tip:'<strong>Tip:</strong> Always use the actual submission date — never backdate.',ex:'令和7年 3月 20日現在'},
+  {n:'②',title:'Full Name — 氏名',jp:'しめい',desc:'English name at the bottom. Furigana line at the top: write pronunciation in Hiragana (or Katakana if フリガナ). Format: Last Name [space] First Name.',tip:'<strong>Note:</strong> "furigana" → Hiragana; "フリガナ" → Katakana.',ex:'氏名: YAMADA Taro ／ ふりがな: やまだ　たろう'},
+  {n:'③',title:'Date of Birth — 生年月日',jp:'せいねんがっぴ',desc:'Format: Year年 Month月 Day日生. The kanji 生 means "born". Age field uses 満 (current age) and 歳 (years old).',tip:'<strong>Age format:</strong> 満 26 歳 = currently 26 years old.',ex:'1998年 4月 15日生（満 26 歳）'},
+  {n:'④',title:'Gender — 性別',jp:'せいべつ',desc:'Write Male = 男 or Female = 女. Still standard on most Japanese CVs, though progressive tech firms may not require it.',tip:'<strong>Note:</strong> Leave blank if you prefer — some modern forms support this.',ex:'性別: 男'},
+  {n:'⑤',title:'Current Address — 現住所',jp:'げんじゅうしょ',desc:'Enter full address in English. Start with 〒 and your postal code. Leave furigana row blank for foreign addresses.',tip:'<strong>Format:</strong> 〒 [postal code] → full address → include Japan or your country.',ex:'〒100-0001 Chiyoda-ku, Tokyo, Japan'},
+],'cvS1');
+buildSteps([
+  {n:'⑥',title:'Phone — 電話',jp:'でんわ',desc:'Enter a mobile number where you are always reachable. Always include country code for international numbers.',tip:'<strong>Required:</strong> Japanese companies CALL to confirm interview time. Always include +country code.',ex:'+94-70-XXX-XXXX or 090-XXXX-XXXX (Japan)'},
+  {n:'⑦',title:'Email — メール',jp:'メールアドレス',desc:'Enter a professional email. Avoid casual usernames. Create a dedicated professional address if needed.',tip:'<strong>Best practice:</strong> firstname.lastname@gmail.com. Check it daily after applying.',ex:'yamada.taro@gmail.com'},
+  {n:'⑧',title:'Alt Contact — 連絡先',jp:'れんらくさき',desc:'If your contact info is the same as sections 5-7, write 同上 (same as above). Only fill in if different.',tip:'<strong>Standard answer:</strong> Just write 同上 — this is what Japanese companies expect.',ex:'連絡先: 同上'},
+  {n:'⑨',title:'Photo — 写真',jp:'しゃしん',desc:'Chest-up, front-facing, taken within 3 months. Size: 縦36–40mm × 横24–30mm. Formal attire, no hat, neutral background.',tip:'<strong>Where:</strong> Photo studios or 証明写真ボックス at most train stations in Japan.',ex:'Formal attire · Front facing · Within 3 months · 縦36-40 × 横24-30mm'},
+],'cvS2');
+buildSteps([
+  {n:'学歴',title:'Academic History — 学歴',jp:'がくれき',desc:'Write 学歴 centered on line 1. List schools chronologically (oldest first). Include enrollment 入学 and graduation 卒業 dates.',tip:'<strong>Key rule:</strong> Write the school BEFORE your highest degree first. End the section with 以上.',ex:'2017.04  ○○University, Dept. of CS  入学\n2021.03  ○○University  卒業'},
+  {n:'職歴',title:'Work History — 職歴',jp:'しょくれき',desc:'After academic history, leave one line blank and write 職歴 centered. List jobs chronologically. End with 以上.',tip:'<strong>Internships count:</strong> Include all ICT internships — especially Japan-related experience.',ex:'2021.04  ABC株式会社 IT部門  入社\n2024.09  退社\n以上'},
+  {n:'資格',title:'Qualifications — 免許・資格',jp:'めんきょしかく',desc:'Write the full official name and the year/month of acquisition. If none, write 特になし on the first line.',tip:'<strong>Key ICT certs:</strong> JLPT N2/N3, IPA FE/AP/SC, AWS SAA, CCNA, CompTIA, TOEIC 700+.',ex:'2022.06  日本語能力試験 N2 合格\n2023.03  基本情報技術者試験 合格'},
+],'cvS3');
+buildSteps([
+  {n:'志望',title:'Motivation — 志望動機',jp:'しぼうどうき',desc:'Connect company mission → your experience → concrete contribution. Use specific project names and numbers where possible.',tip:'<strong>Template:</strong> Attracted to [X] → My [skill/experience] → I will contribute to [dept] by [action].',ex:'"Attracted to your AI platform. With 2yr Python/ML experience, I can contribute to your data team."'},
+  {n:'特技',title:'Special Skills — 特技',jp:'とくぎ',desc:'Name your skill and explain HOW it was practically useful with a specific example. ICT-relevant skills shine here.',tip:'<strong>Key:</strong> Connect every skill to a real work outcome. Frameworks + tools + soft skills all count.',ex:'"Backend API development: reduced response time 40% with Redis caching during [project]."'},
+],'cvS4');
+
+/* Motivation templates */
+var motiveData=[
+  {n:'01',t:'Motivation for Applying — 志望動機',ex:'"I am very attracted to your company\'s involvement in [ICT field]. I strongly believe I can contribute to your [department] by leveraging my experience in [skill]."',tip:'<strong>Key:</strong> Company mission → Your experience → Specific contribution. Use numbers or project names. Avoid vague "I want to grow."'},
+  {n:'02',t:'Strong Points — アピールポイント',ex:'"My strong point is [strength]. During [project], I faced [challenge], took [action], and achieved [result]. This will be valuable in [role]."',tip:'<strong>STAR method:</strong> Situation → Task → Action → Result. Every strength needs a real example. Humility is valued.'},
+  {n:'03',t:'Special Skills — 特技',ex:'"My skill is [skill]. Through [experience], I used this effectively when [situation] and achieved [measurable outcome]."',tip:'<strong>ICT-relevant:</strong> Explain HOW the skill helped professionally — not just what it is.'},
+  {n:'04',t:'Personal Requests — 本人希望',ex:'"貴社規定に従います。" (I will comply with your company regulations.)',tip:'<strong>Standard:</strong> Unless you have essential requirements, write this phrase. Save salary/location discussions for the interview.'},
+];
+document.getElementById('motiveGrid').innerHTML=motiveData.map(function(m){
+  return '<div class="motive-card"><div class="motive-n">Section '+m.n+'</div><div class="motive-t">'+m.t+'</div><div class="motive-ex">'+m.ex+'</div><div class="motive-tip">'+m.tip+'</div></div>';
+}).join('');
+
+/* ── CV LIVE UPDATE ── */
+function gv(id){var el=document.getElementById(id);return el?el.value:'';}
+function st(id,val){var el=document.getElementById(id);if(el)el.textContent=val;}
+function updateCV(){
+  st('rlName',(gv('cvLast')+' '+gv('cvFirst')).trim()||'山田 太郎');
+  st('rlKana',(gv('cvLK')+'　'+gv('cvFK')).trim()||'やまだ　たろう');
+  var d=gv('cvDOB');st('rlDOB',d?d.replace(/-/g,'.')+'生':'年　月　日　生');
+  st('rlGender',gv('cvGender')||'性別');
+  st('rlAddr',gv('cvAddr')||'〒000-0000');
+  st('rlPhone',gv('cvPhone')||'—');
+  st('rlEmail',gv('cvEmail')||'—');
+  st('rlEdu',gv('cvEdu')||'—');
+  st('rlExp',gv('cvExp')||'—');
+  st('rlCert',gv('cvCert')||'—');
+  st('rlSpec',gv('cvSpec')||'専門分野');
+  st('rlMotive',gv('cvMotive')||'—');
+  st('rlSkills',gv('cvSkills')||'—');
+  st('rlReq',gv('cvReq')||'貴社規定に従います');
+  var n=new Date();st('rlDate','令和 '+(n.getFullYear()-2018)+' 年 '+(n.getMonth()+1)+' 月 '+n.getDate()+' 日現在');
+}
+function printCV(){
+  var h=document.getElementById('rlsDoc').outerHTML;
+  var w=window.open('','_blank');
+  if(!w)return;
+  w.document.write('<!DOCTYPE html><html><head><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet"><style>body{font-family:\'Noto Sans JP\',sans-serif;background:#fff;margin:32px;color:#374151}.rls{max-width:760px;margin:auto;background:#fff}table{width:100%;border-collapse:collapse}td{border:1px solid #D1D5DB;padding:4px 6px;font-size:10px;vertical-align:top}.rlst-lbl{background:#F3F4F6;font-weight:700;white-space:nowrap}.rls-title{text-align:center;font-size:16px;font-weight:700;letter-spacing:7px;border-bottom:1.5px solid #374151;padding-bottom:5px;margin-bottom:5px}.rls-shdr{background:#FEE2E2;font-weight:700;text-align:center;padding:2px;font-size:8px;color:#991B1B}.rlst-photo{width:70px;height:84px;border:1px solid #D1D5DB;background:#F9FAFB;text-align:center;vertical-align:middle;font-size:7px;color:#9CA3AF;line-height:1.5;padding:5px}.rls-tn td{border:1px solid #D1D5DB;padding:3px 5px;font-size:9px}</style></head><body>'+h+'</body></html>');
+  w.document.close();w.print();
+}
+
+/* ── TABS ── */
+function buildTabGroup(tabsId,panelsId,items){
+  var tabsEl=document.getElementById(tabsId);
+  var panelsEl=document.getElementById(panelsId);
+  if(!tabsEl||!panelsEl)return;
+  tabsEl.innerHTML='';panelsEl.innerHTML='';
+  items.forEach(function(item,idx){
+    var key=item.key.replace(/\s+/g,'_');
+    var btn=document.createElement('button');
+    btn.className='tab-btn'+(idx===0?' on':'');
+    btn.textContent=item.label;
+    btn.setAttribute('data-panel',panelsId+'_'+key);
+    btn.setAttribute('data-tabs',tabsId);
+    btn.setAttribute('data-panels',panelsId);
+    btn.onclick=function(){
+      document.querySelectorAll('#'+tabsId+' .tab-btn').forEach(function(b){b.classList.remove('on');});
+      document.querySelectorAll('#'+panelsId+' .tab-pane').forEach(function(p){p.classList.remove('on');});
+      btn.classList.add('on');
+      var pane=document.getElementById(panelsId+'_'+key);
+      if(pane)pane.classList.add('on');
+    };
+    tabsEl.appendChild(btn);
+    var pane=document.createElement('div');
+    pane.className='tab-pane'+(idx===0?' on':'');
+    pane.id=panelsId+'_'+key;
+    pane.innerHTML=item.content;
+    panelsEl.appendChild(pane);
+  });
+}
+
+/* ── INTERVIEW CONTENT ── */
+var intQs=[
+  {q:'Tell me about yourself.',jp:'自己紹介をお願いします。',a:'Keep to 1–2 minutes. Structure: Education → Work/Internship → Current skills → Why applying here. Use formal keigo. Begin: 私は〇〇大学を卒業し、現在〇〇に勤めております。',tip:'Be humble and structured. Frame achievements as team contributions, not individual successes.'},
+  {q:'Why do you want to work at this company?',jp:'なぜ弊社を志望されましたか？',a:'Research deeply. Reference specific products, technologies, or company values. Connect them to YOUR skills. Avoid salary-motivated answers.',tip:'Use the 志望動機 structure: Company mission → Your experience → Specific contribution.'},
+  {q:'What are your strengths and weaknesses?',jp:'長所と短所を教えてください。',a:'Strengths: technical + team skills. Weaknesses: name a real one, then show concrete steps you are taking to improve. Never say "I work too hard."',tip:'Humility (謙虚さ) is deeply valued. A weakness with a growth mindset story is seen very positively.'},
+  {q:'Where do you see yourself in 5 years?',jp:'５年後のキャリアビジョンを教えてください。',a:'Show long-term commitment — frequent job changes are frowned upon. Align your growth vision with the company\'s future direction.',tip:'Never mention other companies or industries. Show you want to grow specifically within this organization.'},
+  {q:'Tell me about a challenge you faced and overcame.',jp:'困難を乗り越えた経験を教えてください。',a:'Use STAR method: Situation → Task → Action → Result. Emphasize teamwork and persistence (粘り強さ).',tip:'Practice STAR in Japanese: 状況 → 課題 → 行動 → 結果. Keep examples specific and data-driven.'},
+  {q:'Do you have any questions for us?',jp:'最後に何かご質問はありますか？',a:'ALWAYS ask 2–3 thoughtful questions: team structure, growth opportunities, tech stack, typical workflows. Never ask about salary or vacation in round 1.',tip:'Asking good questions signals genuine interest. Saying "no questions" is a red flag for Japanese interviewers.'},
+];
+var iqHTML='<div class="iq-list">'+intQs.map(function(q,i){
+  return '<div class="iq-card" id="iqC'+i+'"><div class="iq-hdr"><div class="iq-text"><div class="iq-q">Q'+(i+1)+'. '+q.q+'</div><div class="iq-jp">'+q.jp+'</div></div><button class="iq-tog" onclick="toggleIQ('+i+')">+</button></div><div class="iq-body" id="iqB'+i+'"><div class="iq-ans">'+q.a+'</div><div class="iq-tip"><strong>💡 Tip:</strong> '+q.tip+'</div></div></div>';
+}).join('')+'</div>';
+
+var tlData=[
+  {e:'📋',t:'Day Before',tx:'Confirm details: exact address, floor, contact name, company pronunciation. Research latest news and products.',jp:'前日確認'},
+  {e:'👔',t:'Morning',tx:'Dark suit + white shirt for traditional companies. Business casual for tech startups. Bring folder with 3 printed CV copies.',jp:'身だしなみ'},
+  {e:'⏰',t:'10-15 Min Early',tx:'Arrive at the building. Do not enter reception more than 5 min early. Wait quietly, phone on silent.',jp:'早めに到着'},
+  {e:'🚪',t:'Entering',tx:'Knock 2–3 times, wait, say "失礼します", bow entering. Stand until invited to sit.',jp:'失礼します'},
+  {e:'💼',t:'During Interview',tx:'Sit upright, hands on thighs. Steady eye contact. Use keigo throughout. Brief pause before answering shows careful thought.',jp:'面接中の姿勢'},
+  {e:'🎌',t:'Closing',tx:'Ask 2–3 thoughtful questions. Stand, bow, say "本日はありがとうございました", bow again at the door.',jp:'本日はありがとうございました'},
+  {e:'📧',t:'Within 24 Hours',tx:'Send a formal thank-you email. Reference something specific from the conversation. This is remembered and valued.',jp:'お礼メール'},
+];
+var dosList=['Arrive 10–15 min early — wait quietly outside','Bow at ~30° when entering and leaving the room','Bring 3 printed copies of your 履歴書','Use formal keigo throughout the entire interview','Take notes visibly — shows attentiveness and respect','Send a thank-you email within 24 hours after','Wait for the interviewer to finish before speaking'];
+var dontsList=['Asking about salary or holidays in round 1','Crossing arms or leaning back casually','Interrupting the interviewer mid-sentence','Criticizing or speaking negatively about past employers','Using casual language instead of keigo','Arriving exactly on time — it is considered late in Japan','Giving vague answers without specific real examples'];
+var etiqHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start"><div><h3 style="font-family:\'Playfair Display\',serif;font-size:18px;font-weight:700;color:var(--wh);margin-bottom:20px;">Interview Day Timeline</h3><div class="tl">'+tlData.map(function(s){return '<div class="tl-item"><div class="tl-dot">'+s.e+'</div><div class="tl-time">'+s.t+'</div><div class="tl-text">'+s.tx+'</div><div class="tl-jp">'+s.jp+'</div></div>';}).join('')+'</div></div><div><h3 style="font-family:\'Playfair Display\',serif;font-size:18px;font-weight:700;color:var(--wh);margin-bottom:20px;">Do\'s &amp; Don\'ts</h3><div style="display:flex;flex-direction:column;gap:12px"><div class="dd-box dos-box"><div class="dd-title dos-t">✅ Do These</div>'+dosList.map(function(d){return '<div class="dd-row"><div class="dd-ico">✓</div>'+d+'</div>';}).join('')+'</div><div class="dd-box dont-box"><div class="dd-title dont-t">❌ Avoid These</div>'+dontsList.map(function(d){return '<div class="dd-row"><div class="dd-ico">✗</div>'+d+'</div>';}).join('')+'</div></div></div></div>';
+
+var vidData=[
+  {id:'M96B-IA0OZQ',tag:'Interview Tips',t:'How to Ace a Japanese Job Interview',d:'Comprehensive guide to Japanese interview culture, keigo usage, and what interviewers really look for.'},
+  {id:'WcqBDMjE7Cs',tag:'Self Introduction',t:'Japanese Self-Introduction for Interviews',d:'Step-by-step guide to crafting the perfect 自己紹介 with real examples for Japanese companies.'},
+  {id:'hMXnEnTCHmI',tag:'Etiquette',t:'Japanese Business Etiquette Explained',d:'Business card exchange, bowing, meeting behavior, and essential professional etiquette.'},
+  {id:'Ks4TxCqsqYc',tag:'Resume Guide',t:'履歴書 Writing Guide for Foreign Applicants',d:'How to correctly complete every section of a 履歴書 with tips for international candidates.'},
+  {id:'AkKqeYB0KVQ',tag:'Work Culture',t:'Working in Japan — What to Expect',d:'Real insights on Japanese company culture, teamwork expectations, and how to adapt.'},
+  {id:'zSpi3vNLmSE',tag:'Business Japanese',t:'Business Japanese Phrases for Work',d:'Essential phrases for meetings, emails, and daily office communication in Japan\'s tech industry.'},
+];
+var vidHTML='<div class="vid-grid">'+vidData.map(function(v){
+  return '<div class="vid-card"><div class="vid-embed"><iframe src="https://www.youtube.com/embed/'+v.id+'?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe></div><div class="vid-meta"><div class="vid-pill">'+v.tag+'</div><div class="vid-title">'+v.t+'</div><div class="vid-desc">'+v.d+'</div></div></div>';
+}).join('')+'</div>';
+
+buildTabGroup('intTabs','intPanels',[
+  {key:'Questions',label:'Common Questions',content:iqHTML},
+  {key:'Etiquette',label:'Etiquette & Timeline',content:etiqHTML},
+  {key:'Videos',label:'Video Resources',content:vidHTML},
+]);
+function toggleIQ(i){
+  var body=document.getElementById('iqB'+i);
+  var card=document.getElementById('iqC'+i);
+  if(!body||!card)return;
+  var isOpen=body.classList.contains('open');
+  body.classList.toggle('open');
+  card.classList.toggle('open');
+  var tog=card.querySelector('.iq-tog');
+  if(tog)tog.textContent=isOpen?'+':'−';
+}
+
+/* ── CULTURE CONTENT ── */
+var cultSections=[
+  {key:'Daily',label:'Daily Workflow',cards:[
+    {i:'礼',t:'Morning Greetings',jp:'おはようございます',d:'Arrive before your supervisor. Greet ALL colleagues clearly with おはようございます. The energy of your greeting sets the day\'s tone.',ex:'"Loud, clear greetings signal high morale. A quiet greeting suggests low energy to Japanese colleagues."'},
+    {i:'報',t:'Horenso 報連相',jp:'ほうれんそう',d:'Report (報告) progress, Contact (連絡) about changes, Consult (相談) before deciding. Proactive upward communication is essential.',ex:'"Even if progress is negative, report early. 「少し遅れそうです」— I might be a bit late."'},
+    {i:'時',t:'Punctuality 時間厳守',jp:'じかんげんしゅ',d:'Arriving on time = arriving late in Japan. Aim 10 minutes early. Even 1 minute late: call manager using formal keigo.',ex:'"遅刻します、大変申し訳ございません" — I will be late, I sincerely apologize.'},
+    {i:'昼',t:'Lunch Break 昼休み',jp:'ひるやすみ',d:'Typically 12:00–13:00. Many teams eat together — joining builds relationships. Bringing bento is common and respected.',ex:'Eating out with colleagues, especially 先輩, is a great relationship-building opportunity.'},
+    {i:'退',t:'End of Day 退勤',jp:'おつかれさまでした',d:'Check if supervisor has pending work. Announce departure: "お先に失礼します". Others reply: "お疲れ様でした".',ex:'"お先に失礼します" when you leave first. "お疲れ様でした" in response.'},
+    {i:'日',t:'Daily Report 日報',jp:'にっぽう',d:'Many Japanese companies require a 日報 before end of day: completed tasks, pending items, tomorrow\'s plan. Send by 17:30.',ex:'"本日完了: API実装。進行中: テスト。明日の予定: レビュー対応。"'},
+  ],scenario:[
+    {t:'08:45',a:'Arrive Early',jp:'出社',d:'Boot PC, review emails, prepare for standup. Greet everyone おはようございます.'},
+    {t:'09:00',a:'Morning Standup',jp:'朝会',d:'15-min daily standup: yesterday, today, blockers. Keep concise.'},
+    {t:'09:15',a:'Deep Work',jp:'集中作業',d:'Focus time. Respond to Slack within 30 min. Escalate blockers via Horenso.'},
+    {t:'12:00',a:'Lunch Break',jp:'昼休み',d:'60 min. Many teams eat together — build relationships with senior colleagues.'},
+    {t:'14:00',a:'Meetings & Reviews',jp:'打ち合わせ',d:'Code reviews, design, planning. Use formal language even internally.'},
+    {t:'17:30',a:'Daily Report',jp:'日報',d:'Submit 日報: completed items, pending work, tomorrow\'s plan.'},
+  ]},
+  {key:'Etiquette',label:'Office Etiquette',cards:[
+    {i:'名',t:'Business Card 名刺',jp:'めいし',d:'Exchange with both hands and slight bow. Read carefully — never write on it. Place it respectfully on the table during meetings.',ex:'"頂戴いたします" (I humbly receive this). Look carefully, say the person\'s name.'},
+    {i:'席',t:'Seating Order 席次',jp:'せきじ',d:'Senior staff sit 上座 (farthest from entrance). Junior staff sit 下座 (closest). Applies in meeting rooms, taxis, and restaurants.',ex:'Wait to be directed to your seat. Never sit before being invited.'},
+    {i:'会',t:'Nemawashi 根回し',jp:'ねまわし',d:'Informal consensus-building before meetings. Share proposals individually first. Japanese meetings confirm — they do not make — decisions.',ex:'Spend 2–3 days doing nemawashi for major proposals. Surprises in meetings lead to rejection.'},
+    {i:'贈',t:'Gift Giving お土産',jp:'おみやげ',d:'Returning from travel? Bring omiyage for your team. Place on the break room table with "皆さんでどうぞ".',ex:'"皆さんでどうぞ" — Please help yourselves, everyone. Even small sweets create significant goodwill.'},
+    {i:'宴',t:'Nomikai 飲み会',jp:'のみかい',d:'After-work drinking is an important relationship builder. Attendance is semi-expected for new employees. First pour is always for the senior person.',ex:'Pour for others first — never pour your own drink. Wait for 乾杯 before drinking.'},
+    {i:'謝',t:'Apologizing 謝罪',jp:'しゃざい',d:'Sincere apologies are deeply valued. Apologize immediately, take responsibility, explain corrective action. Never blame others first.',ex:'"大変申し訳ございません" — I am truly sorry. Follow with cause and preventive action.'},
+  ],scenario:null},
+  {key:'TechWork',label:'Tech Workplace',cards:[
+    {i:'改',t:'Kaizen 改善 Mindset',jp:'かいぜん',d:'Continuous improvement is embedded in Japanese tech. Always look for incremental improvements in code, process, and communication.',ex:'Even 5% improvements matter. Document improvements made (改善提案書). Volunteer to improve things visibly.'},
+    {i:'勉',t:'Study Groups 勉強会',jp:'べんきょうかい',d:'Internal study groups are very common. Participation shows dedication. Topics: new languages, security certs, cloud.',ex:'Volunteer to lead a 勉強会 after settling in — it raises your profile and shows real initiative.'},
+    {i:'ツ',t:'Popular Tools ツール',jp:'つーる',d:'Popular in Japan\'s tech: Backlog (more popular than Jira in many firms), Slack/Teams, GitHub, Figma, Notion, LINE Works.',ex:'Learn Backlog by Nulab before applying — it is the #1 PM tool in Japan\'s ICT sector.'},
+    {i:'残',t:'Work Style Reform',jp:'働き方改革',d:'Japan is reforming overtime culture. Many tech companies now have flex hours, remote work, and healthier work-life balance.',ex:'Progressive companies offer フレックスタイム and テレワーク. Ask about this culture in interviews.'},
+    {i:'評',t:'Performance Reviews',jp:'評価面談',d:'Typically 2x per year. Set goals (目標設定) at the start of each cycle. Self-assessment (自己評価) is submitted before the review.',ex:'Frame achievements as team contributions: "私のチームは..." rather than "私は..."'},
+    {i:'先',t:'Senpai-Kohai 先輩後輩',jp:'せんぱいこうはい',d:'Hierarchical mentorship system. Your 先輩 guides you. As コウハイ, show deference, ask questions, take assigned tasks seriously.',ex:'After ~6 months you become senior to newer hires. Actively mentoring them is expected.'},
+  ],scenario:null},
+  {key:'Language',label:'Language Tips',cards:[
+    {i:'敬',t:'Keigo Basics 敬語',jp:'けいご',d:'Three levels: 丁寧語 (polite), 尊敬語 (respectful), 謙譲語 (humble). Use 丁寧語 (です/ます) in all professional settings at minimum.',ex:'Polite: 食べます。Respectful: 召し上がります。Humble: いただきます。'},
+    {i:'メ',t:'Business Email Format',jp:'めーるぶんたい',d:'Format: お世話になっております → Your name/company → Main content → Next step → よろしくお願いいたします.',ex:'Opening: お世話になっております、[name]でございます。\nClosing: 何卒よろしくお願いいたします。'},
+    {i:'電',t:'Phone Calls 電話対応',jp:'でんわたいおう',d:'Answer within 3 rings. Start: 「はい、〇〇会社〇〇でございます」. Take notes. Wait for caller to hang up first.',ex:'"少々お待ちください" — Please wait a moment.\n"確認してご連絡いたします" — I will get back to you.'},
+    {i:'会',t:'Meeting Phrases 会議',jp:'かいぎことば',d:'ご検討をお願いします (please consider), ご確認ください (please confirm), いかがでしょうか (how about...?), おっしゃる通りです.',ex:'"おっしゃる通りです" — shows agreement with a senior without being sycophantic.'},
+    {i:'断',t:'Polite Refusal 断り方',jp:'ことわりかた',d:'Direct "no" is rare. Instead: "むずかしい状況です" (difficult situation), "少し検討させてください" (let me think). These often mean "no."',ex:'"ちょっと..." followed by a pause signals reluctance. Learn to read between the lines.'},
+    {i:'確',t:'Confirming 確認',jp:'かくにん',d:'Always confirm important information. In Japan, confirming is professional — not a sign of weakness or uncertainty.',ex:'"確認させていただきます" — Let me confirm.\n"〜でよろしいでしょうか？" — Is ~ correct?'},
+  ],scenario:null},
+];
+var cultTabItems=cultSections.map(function(sec){
+  var cardsHTML='<div class="cult-grid">'+sec.cards.map(function(c){
+    return '<div class="cult-card"><div class="cult-icon">'+c.i+'</div><div class="cult-title">'+c.t+'</div><div class="cult-jp">'+c.jp+'</div><div class="cult-desc">'+c.d+'</div><div class="cult-ex">'+c.ex+'</div></div>';
+  }).join('')+'</div>';
+  var scenHTML='';
+  if(sec.scenario){
+    scenHTML='<div class="scenario-box"><div class="scenario-hdr"><span>📅</span><h3>A Typical Day at a Japanese Tech Company</h3></div><div class="day-grid">'+sec.scenario.map(function(s){
+      return '<div class="day-slot"><div class="day-time">'+s.t+'</div><div class="day-act">'+s.a+'</div><div class="day-jp">'+s.jp+'</div><div class="day-desc">'+s.d+'</div></div>';
+    }).join('')+'</div></div>';
+  }
+  return {key:sec.key,label:sec.label,content:cardsHTML+scenHTML};
+});
+buildTabGroup('cultTabs','cultPanels',cultTabItems);
+
+/* ── VOCABULARY ── */
+var vocabData=[
+  {k:'報告',r:'ほうこく',m:'Report / Update',e:'報告があります。— I have a report.',c:'Communication'},
+  {k:'締切',r:'しめきり',m:'Deadline',e:'締切は明日です。— Deadline is tomorrow.',c:'Project'},
+  {k:'会議',r:'かいぎ',m:'Meeting',e:'会議に参加してください。— Please join the meeting.',c:'Daily'},
+  {k:'開発',r:'かいはつ',m:'Development',e:'ソフトウェア開発 — Software development',c:'Technical'},
+  {k:'不具合',r:'ふぐあい',m:'Bug / Issue',e:'不具合を発見しました。— I found a bug.',c:'Technical'},
+  {k:'納期',r:'のうき',m:'Delivery date',e:'納期を確認してください。— Please confirm.',c:'Project'},
+  {k:'仕様書',r:'しようしょ',m:'Specification doc',e:'仕様書を作成します。— I will create the spec.',c:'Technical'},
+  {k:'お疲れ様',r:'おつかれさま',m:'Good work / Thanks',e:'お疲れ様でした！— Great work today!',c:'Daily'},
+  {k:'承知',r:'しょうち',m:'Understood (formal)',e:'承知いたしました。— I fully understand.',c:'Communication'},
+  {k:'よろしく',r:'よろしくおねがいします',m:'Please take care of it',e:'よろしくお願いします。— Counting on you.',c:'Communication'},
+  {k:'残業',r:'ざんぎょう',m:'Overtime work',e:'今日は残業があります。— I have overtime today.',c:'Daily'},
+  {k:'改善',r:'かいぜん',m:'Improvement (Kaizen)',e:'改善提案をします。— I will suggest an improvement.',c:'Culture'},
+  {k:'上司',r:'じょうし',m:'Superior / Boss',e:'上司に相談します。— I will consult my boss.',c:'Workplace'},
+  {k:'先輩',r:'せんぱい',m:'Senior colleague',e:'先輩に聞いてみます。— I will ask my senior.',c:'Workplace'},
+  {k:'後輩',r:'こうはい',m:'Junior colleague',e:'後輩を指導する — Mentor a junior.',c:'Workplace'},
+  {k:'敬語',r:'けいご',m:'Honorific language',e:'敬語を使ってください。— Please use keigo.',c:'Language'},
+  {k:'名刺',r:'めいし',m:'Business card',e:'名刺を交換しましょう。— Let\'s exchange cards.',c:'Etiquette'},
+  {k:'確認',r:'かくにん',m:'Confirmation / Check',e:'ご確認ください。— Please confirm.',c:'Communication'},
+  {k:'日報',r:'にっぽう',m:'Daily report',e:'日報を提出します。— I will submit the report.',c:'Workplace'},
+  {k:'バグ修正',r:'バグしゅうせい',m:'Bug fix',e:'バグ修正をお願いします。— Please fix the bug.',c:'Technical'},
+];
+var allCats=['All'].concat(vocabData.reduce(function(acc,w){if(acc.indexOf(w.c)===-1)acc.push(w.c);return acc;},[]).sort());
+var activeVocabCat='All';
+document.getElementById('vfilters').innerHTML=allCats.map(function(c,i){
+  return '<button class="vf'+(i===0?' on':'')+'" onclick="setVocabCat(\''+c+'\',this)">'+c+'</button>';
+}).join('');
+function setVocabCat(cat,btn){
+  activeVocabCat=cat;
+  document.querySelectorAll('.vf').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  filterVocab();
+}
+function filterVocab(){
+  var q=(document.getElementById('vsInput')||{value:''}).value.toLowerCase();
+  var filtered=vocabData.filter(function(w){
+    return (activeVocabCat==='All'||w.c===activeVocabCat)&&(w.k.includes(q)||w.m.toLowerCase().includes(q)||w.r.includes(q));
+  });
+  var grid=document.getElementById('vocabGrid');
+  if(!grid)return;
+  grid.innerHTML=filtered.map(function(w){
+    return '<div class="vocab-card"><span class="vc-kanji">'+w.k+'</span><div class="vc-read">'+w.r+'</div><div class="vc-mean">'+w.m+'</div><div class="vc-ex">'+w.e+'</div><span class="vc-cat">'+w.c+'</span></div>';
+  }).join('');
+}
+filterVocab();
+
+/* ── PROGRESS BARS ── */
+var progObserver=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      document.querySelectorAll('.pt-fill').forEach(function(bar){
+        bar.style.width=(bar.getAttribute('data-pct')||'0')+'%';
+      });
+    }
+  });
+},{threshold:0.2});
+var progEl=document.getElementById('progress');
+if(progEl)progObserver.observe(progEl);
+
+/* ── QUIZ ── */
+var quizData=[
+  {cat:'履歴書 Knowledge',q:'What should you write in 連絡先 (section ⑧) if your contact info is the same as sections 5-7?',jp:'連絡先が同じ場合、何と書きますか？',opts:['N/A','空欄（空白）','同上','現在なし'],correct:2,fb:'Write 同上 (どうじょう) meaning "same as above." This is the standard and expected response.'},
+  {cat:'CV Writing',q:'In what order should work history (職歴) be written?',jp:'職歴はどのように書きますか？',opts:['Latest job first','Random order','Chronological — oldest job first','By company size'],correct:2,fb:'Work history must be written chronologically — oldest job first. Always end the section with 以上 on the final line.'},
+  {cat:'Interview Etiquette',q:'When is the right time to ask about salary in a Japanese interview?',jp:'給与について聞くのはいつですか？',opts:['At the start of round 1','Any time during the interview','Never ask at all','In later rounds or after receiving an offer'],correct:3,fb:'Asking about salary in round 1 is considered inappropriate. Wait until later rounds or after an offer. Show interest in the work and culture first.'},
+  {cat:'Business Culture',q:'What does 根回し (Nemawashi) mean in the Japanese workplace?',jp:'根回しとは何ですか？',opts:['Overtime approval process','Informal pre-meeting consensus building','Morning greeting routine','Annual performance review'],correct:1,fb:'根回し means informally consulting key stakeholders BEFORE a formal meeting to build consensus. Japanese meetings confirm decisions — they rarely make them from scratch.'},
+  {cat:'履歴書 Photo',q:'What are the required photo specifications for a Japanese 履歴書?',jp:'履歴書の写真サイズは？',opts:['Passport size 5×5cm','縦36-40mm × 横24-30mm, within 3 months','Any professional photo is fine','Driver\'s license photo size'],correct:1,fb:'Required: 縦36-40mm × 横24-30mm, taken within 3 months, front-facing, professional attire, no hat, neutral background.'},
+  {cat:'Business Language',q:'Which phrase is the MOST formal way to say "I understand" in business Japanese?',jp:'最も丁寧な「わかりました」は？',opts:['わかった','了解です','承知いたしました','OKです'],correct:2,fb:'承知いたしました is the most formal and correct business phrase. わかった and OKです are far too casual for any business setting.'},
+  {cat:'Business Culture',q:'What is 報連相 (Horenso) in the Japanese workplace?',jp:'報連相とは？',opts:['Team lunch arrangement system','Report, Contact, Consult — proactive communication upward','Japanese overtime approval system','Performance review system'],correct:1,fb:'報連相 = 報告 (Report) + 連絡 (Contact) + 相談 (Consult). Always keep your manager proactively informed of all progress, changes, and issues.'},
+  {cat:'Interview',q:'When leaving a Japanese job interview, what should you say?',jp:'面接後に何と言いますか？',opts:['Bye!','また来ます','本日はありがとうございました','お疲れ様でした'],correct:2,fb:'"本日はありがとうございました" (Thank you very much for today) — bow as you say it and again at the door. Then send a thank-you email within 24 hours.'},
+];
+var qi=0,qs=0,qa=false;
+function loadQ(){
+  var q=quizData[qi];
+  var numEl=document.getElementById('qNum');
+  var txtEl=document.getElementById('qTxt');
+  var progEl2=document.getElementById('qProg');
+  var catEl=document.getElementById('qCat');
+  var qEl=document.getElementById('qQ');
+  var jpEl=document.getElementById('qJP');
+  var optsEl=document.getElementById('qOpts');
+  var fbEl=document.getElementById('qFB');
+  var nextEl=document.getElementById('qNext');
+  var scoreEl=document.getElementById('qScore');
+  var totalEl=document.getElementById('qTotal');
+  if(!q||!numEl)return;
+  numEl.textContent=(qi+1)+' / '+quizData.length;
+  txtEl.textContent='Question '+(qi+1);
+  progEl2.style.width=(((qi+1)/quizData.length)*100)+'%';
+  catEl.textContent=q.cat;
+  qEl.textContent=q.q;
+  jpEl.textContent=q.jp;
+  if(nextEl)nextEl.style.display='none';
+  fbEl.className='quiz-fb';fbEl.textContent='';
+  scoreEl.textContent=qs;totalEl.textContent=qi;
+  qa=false;
+  var letters=['A','B','C','D'];
+  optsEl.innerHTML=q.opts.map(function(o,i){
+    return '<button class="quiz-opt" onclick="ansQ('+i+')"><span class="qltr">'+letters[i]+'</span>'+o+'</button>';
+  }).join('');
+}
+function ansQ(idx){
+  if(qa)return;
+  qa=true;
+  var q=quizData[qi];
+  var btns=document.querySelectorAll('.quiz-opt');
+  btns.forEach(function(b){b.disabled=true;});
+  if(btns[q.correct])btns[q.correct].classList.add('correct');
+  if(idx!==q.correct&&btns[idx])btns[idx].classList.add('wrong');
+  else qs++;
+  var fb=document.getElementById('qFB');
+  fb.textContent=q.fb;
+  fb.className='quiz-fb show '+(idx===q.correct?'ok':'bad');
+  var nextEl=document.getElementById('qNext');
+  if(nextEl)nextEl.style.display='inline-flex';
+  var s=document.getElementById('qScore');var t=document.getElementById('qTotal');
+  if(s)s.textContent=qs;if(t)t.textContent=qi+1;
+}
+function nextQ(){
+  qi++;
+  if(qi>=quizData.length){
+    var pct=Math.round(qs/quizData.length*100);
+    var card=document.getElementById('quizCard');
+    if(!card)return;
+    card.innerHTML='<div style="text-align:center;padding:36px 0"><div style="font-size:52px;margin-bottom:14px">'+(qs>=6?'🎌':'📚')+'</div><h2 style="font-family:\'Playfair Display\',serif;font-size:26px;font-weight:800;color:var(--wh);margin-bottom:8px">Quiz Complete! — 完了</h2><p style="font-size:16px;color:var(--wh4);margin-bottom:6px">Score: <strong style="color:var(--wh)">'+qs+' / '+quizData.length+'</strong></p><p style="font-size:30px;font-weight:800;color:var(--red);margin-bottom:8px">'+pct+'%</p><p style="font-size:13px;color:'+(qs>=6?'var(--green)':'var(--red)')+';margin-bottom:28px">'+(qs>=6?'Excellent! あなたは素晴らしい！':'Keep studying! もっと頑張りましょう！')+'</p><button class="btn btn-red btn-sm" onclick="restartQ()">Try Again — もう一度</button></div>';
+    return;
+  }
+  loadQ();
+}
+function restartQ(){
+  qi=0;qs=0;
+  var card=document.getElementById('quizCard');
+  if(!card)return;
+  card.innerHTML='<div class="quiz-top"><span class="quiz-num" id="qTxt">Question 1</span><div class="quiz-pb"><div class="quiz-pb-fill" id="qProg" style="width:12.5%"></div></div><span class="quiz-num" id="qNum">1 / 8</span></div><div class="quiz-cat" id="qCat"></div><div class="quiz-q" id="qQ"></div><div class="quiz-qjp" id="qJP"></div><div class="quiz-opts" id="qOpts"></div><div class="quiz-fb" id="qFB"></div><div class="quiz-footer"><span class="quiz-score"><strong id="qScore">0</strong> / <strong id="qTotal">0</strong> correct</span><button class="btn btn-red btn-sm" id="qNext" onclick="nextQ()" style="display:none">Next →</button></div>';
+  loadQ();
+}
+loadQ();
+</script>
+</body>
+</html>
